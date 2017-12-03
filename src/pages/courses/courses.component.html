@@ -1,6 +1,15 @@
-<education-header></education-header>
-<h1>Courses list</h1>
-<div>Course 1</div>
-<div>Course 2</div>
-<div>Course 3</div>
-<education-footer></education-footer>
+<div class="container">
+    <education-header></education-header>
+  <div class="row">
+    <toolbox></toolbox>
+  </div>
+  <div class="row">
+    <item *ngFor="let course of allCourses"
+          [data]="course" >
+    </item>
+  </div>
+  <footer class="footer">
+    <education-footer></education-footer>
+  </footer>
+</div>
+
