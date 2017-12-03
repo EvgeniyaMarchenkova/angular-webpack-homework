@@ -1,4 +1,13 @@
 import { Component } from '@angular/core';
+import * as moment from 'moment';
+
+interface Course {
+  id: number;
+  title: string;
+  creatingDate: moment.Moment;
+  duration: number;
+  description: string;
+}
 
 @Component({
   selector: 'courses-list',
