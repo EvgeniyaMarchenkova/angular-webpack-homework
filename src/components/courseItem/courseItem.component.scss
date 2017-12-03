@@ -1,6 +1,13 @@
-.course-info {
+.course-section {
   margin: 5px;
   padding: 5px;
-  border-top: 3px solid lightblue;
-  border-bottom: 3px solid lightblue;
+  border-top: 3px solid lightgray;
+
+  button {
+    margin-top: 5px;
+  }
+
+  .bolder {
+    font-weight: bolder;
+  }
 }

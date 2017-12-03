@@ -1,7 +1,10 @@
-<form>
-  <div>
-    <input [(ngModel)]="findCourseValue" name="course">
-    <button>Find</button>
-  </div>
-  <button (click)="writeConsole()">Add course</button>
-</form>
+<div class="tool">
+  <form>
+    <div class="form-group">
+      <input [(ngModel)]="findCourseValue" name="course" class="form-control">
+      <button class="btn btn-primary">Find</button>
+    </div>
+  </form>
+  <button class="btn btn-lg btn-primary" (click)="writeConsole()">Add course</button>
+</div>
+

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Course } from '../../interfaces';
 
@@ -9,7 +9,12 @@ import { Course } from '../../interfaces';
 })
 export class CourseItemComponent {
   @Input() data: Course;
+  @Output() onWriten: EventEmitter<number> = new EventEmitter();
 
   constructor() {}
+
+  writeId(id) {
+    console.log(id)
+  }
 
 }

@@ -1,15 +1,21 @@
-<div class="row">
+<div class="row course-section">
   <div class="col">
     <div class="course-info">
-      <div>{{data.title}}</div>
+      <h2>{{data.title}}</h2>
       <div>{{data.description}}</div>
-      <div>{{data.duration}}</div>
-      <div>{{data.creatingDate}}</div>
+      <div>
+        <span class="bolder">Duration:</span>
+        {{data.duration}}
+      </div>
+      <div>
+        <span class="bolder">Created:</span>
+        {{data.creatingDate}}
+      </div>
     </div>
   </div>
   <div class="col">
     <button class="btn btn-primary">Edit course</button>
-    <button (click)="console.log(5)" class="btn btn-primary">Delet course</button>
+    <button (click)="writeId(data.id)" class="btn btn-primary">Delet course</button>
   </div>
 </div>
 
