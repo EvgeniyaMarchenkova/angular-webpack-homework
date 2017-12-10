@@ -1,10 +1,39 @@
 <div class="tool">
   <form>
     <div class="form-group">
-      <input [(ngModel)]="findCourseValue" name="course" class="form-control">
+      <input [(ngModel)]="findCourseValue"
+             name="course"
+             class="form-control">
       <button class="btn btn-primary">Find</button>
     </div>
   </form>
-  <button class="btn btn-lg btn-primary" (click)="writeConsole()">Add course</button>
+  <button class="btn btn-lg btn-primary"
+          (click)="isCreating = true">Add course</button>
+  <form *ngIf="isCreating">
+    <div class="form-group creating-form">
+      <input  name="course"
+              class="form-control"
+              [(ngModel)]="titleNewCourse"
+              id="creatingTitleCourseInput">
+      <label for="creatingTitleCourseInput">Title of course</label>
+      <input  name="course"
+              class="form-control"
+              [(ngModel)]="durationNewCourse"
+              id="creatingDurationCourseInput">
+      <label for="creatingDurationCourseInput">Duration of course</label>
+      <input  name="course"
+              class="form-control"
+              [(ngModel)]="descriptionNewCourse"
+              id="creatingDescriptionCourseInput">
+      <label for="creatingDescriptionCourseInput">Description of course</label>
+      <div>
+        <button class="btn btn-primary"
+                (click)="saveCourse()">Save</button>
+        <button class="btn btn-primary"
+                (click)="cancelCreating()">Cancel</button>
+      </div>
+
+    </div>
+  </form>
 </div>
 

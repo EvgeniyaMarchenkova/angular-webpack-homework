@@ -9,12 +9,12 @@ import { Course } from '../../interfaces';
 })
 export class CourseItemComponent {
   @Input() data: Course;
-  @Output() onWriten: EventEmitter<number> = new EventEmitter();
+  @Output() idCourse: EventEmitter<number> = new EventEmitter();
 
   constructor() {}
 
   writeId(id) {
-    console.log(id)
+    this.idCourse.emit(id);
   }
 
 }

@@ -1,9 +1,9 @@
 import * as moment from 'moment';
 
 export  interface Course {
-  id: number;
+  id: any;
   title: string;
-  creatingDate: string;
+  creatingDate: moment.Moment;
   duration: number;
   description: string;
 }

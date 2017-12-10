@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+
+import { CourseService } from '../services/course.service';
 import { AppComponent } from './app.component';
 import { CoursesComponent } from '../pages/courses/courses.component';
 import { FooterComponent } from '../components/footer/footer.component';
@@ -22,7 +24,7 @@ import { CourseItemComponent } from '../components/courseItem/courseItem.compone
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CourseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

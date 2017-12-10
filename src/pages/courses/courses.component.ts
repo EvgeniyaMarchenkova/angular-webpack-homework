@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
-import { allCourses } from './dataCourses';
+import { CourseService } from '../../services/course.service';
 import { Course } from '../../interfaces'
 
 @Component({
@@ -11,8 +11,17 @@ import { Course } from '../../interfaces'
 })
 export class CoursesComponent implements OnInit{
   allCourses: Course[]=[];
+  isDeleting: boolean;
+
+  constructor(private courseService: CourseService) {}
 
   ngOnInit() {
-    this.allCourses = allCourses;
+    this.allCourses = this.courseService.getAllCourses();
+    this.isDeleting = false;
+  }
+
+  delete(id) {
+    this.isDeleting = true;
+    this.courseService.deleteCourse(id);
   }
 }
