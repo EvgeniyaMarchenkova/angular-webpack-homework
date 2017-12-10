@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef  } from '@angular/core';
 import * as moment from 'moment';
+import { Overlay } from 'ngx-modialog';
+import { Modal } from 'ngx-modialog/plugins/bootstrap';
 
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../interfaces'
@@ -11,17 +13,25 @@ import { Course } from '../../interfaces'
 })
 export class CoursesComponent implements OnInit{
   allCourses: Course[]=[];
-  isDeleting: boolean;
+  isUpdating: boolean;
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService,
+              public modal: Modal) {}
 
   ngOnInit() {
     this.allCourses = this.courseService.getAllCourses();
-    this.isDeleting = false;
+    this.isUpdating = false;
   }
 
-  delete(id) {
-    this.isDeleting = true;
-    this.courseService.deleteCourse(id);
+  deleteCourse(id) {
+    const isDelete = confirm("Do you really want to delete this course?");
+    if (isDelete) {
+      this.courseService.deleteCourse(id);
+    }
+  }
+
+
+  updateCourse(id) {
+    this.isUpdating = true;
   }
 }

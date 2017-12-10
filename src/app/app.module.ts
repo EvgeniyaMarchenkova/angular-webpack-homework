@@ -1,22 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-modialog';
+import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 
 import { SharedModule } from '../components/shared.module';
+import { CoursesModule } from '../pages/courses/courses.module';
+import { LoginModule } from '../pages/login/login.module';
 import { CourseService } from '../services/course.service';
 import { AuthorizationService } from '../services/authorization.service';
 import { AppComponent } from './app.component';
-import { CoursesComponent } from '../pages/courses/courses.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CoursesComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    LoginModule,
+    CoursesModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [CourseService, AuthorizationService],
   bootstrap: [AppComponent]
