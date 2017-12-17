@@ -5,5 +5,6 @@ export  interface Course {
   title: string;
   creatingDate: moment.Moment;
   duration: number;
+  topRated: boolean,
   description: string;
 }

@@ -11,3 +11,11 @@
     font-weight: bolder;
   }
 }
+
+.top-rated-course {
+  background-color: lightgrey;
+
+  h2:after {
+    content: '*';
+  }
+}

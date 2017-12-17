@@ -5,7 +5,7 @@ import { Modal } from 'ngx-modialog/plugins/bootstrap';
 
 import { CourseService } from '../../core/services/course.service';
 import { Course } from '../../shared/interfaces/course'
-import { ChangeBorderDirective } from '../../shared/directives/changeBorderDirective';
+
 
 @Component({
   selector: 'courses-list',
@@ -15,13 +15,23 @@ import { ChangeBorderDirective } from '../../shared/directives/changeBorderDirec
 export class CoursesComponent implements OnInit{
   allCourses: Course[]=[];
   isUpdating: boolean;
+  countCourses: number;
+  noCourses: boolean;
 
   constructor(private courseService: CourseService,
-              public modal: Modal,
-              public changeBorderDirective: ChangeBorderDirective) {}
+              public modal: Modal) {}
 
   ngOnInit() {
     this.allCourses = this.courseService.getAllCourses();
+    if (this.allCourses) {
+      this.countCourses = this.allCourses.length;
+      this.noCourses = false;
+    }
+    else {
+      this.countCourses = 0;
+      this.noCourses = true;
+    }
+
     this.isUpdating = false;
   }
 
@@ -29,6 +39,12 @@ export class CoursesComponent implements OnInit{
     const isDelete = confirm("Do you really want to delete this course?");
     if (isDelete) {
       this.courseService.deleteCourse(id);
+      if (this.countCourses > 1) {
+        this.countCourses--;
+      }
+      else {
+        this.noCourses = true;
+      }
     }
   }
 

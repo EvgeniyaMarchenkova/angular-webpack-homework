@@ -4,10 +4,12 @@
     <toolbox></toolbox>
   </div>
   <div class="row">
+    <div class="no-courses-message" *ngIf="noCourses">
+      No data. Feel free to add new courses.
+    </div>
     <item *ngFor="let course of allCourses"
           [data]="course"
-          (idCourse)="deleteCourse($event)"
-          [changeBorderDirective]="course.creatingDate">
+          (idCourse)="deleteCourse($event)">
     </item>
   </div>
   <footer class="footer">

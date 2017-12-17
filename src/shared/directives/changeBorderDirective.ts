@@ -1,18 +1,24 @@
-import { Directive, Input, ElementRef } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 @Directive({
   selector: '[changeBorderDirective]'
 })
-export class ChangeBorderDirective {
+export class ChangeBorderDirective implements OnInit {
   @Input('changeBorderDirective') creatingDate: moment.Moment;
 
-  constructor(el: ElementRef) {
-    if (this.creatingDate.isBefore(moment(new Date()))) {
-      el.nativeElement.style.backgroundColor = 'yellow';
+  constructor(protected el: ElementRef) {}
+
+  ngOnInit() {
+    const currentDate = moment(Date());
+    if (this.creatingDate.isBefore(currentDate)) {
+      const creatingDatetAddTwoWeeks = this.creatingDate.add(2, 'week');
+      if (creatingDatetAddTwoWeeks.isAfter(currentDate)) {
+        this.el.nativeElement.style.border = '2px solid darkgreen';
+      }
     }
     else  {
-      el.nativeElement.style.backgroundColor = 'green';
+      this.el.nativeElement.style.border = '2px solid darkblue';
     }
 
   }

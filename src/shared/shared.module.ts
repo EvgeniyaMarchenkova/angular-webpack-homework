@@ -9,6 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { CourseItemComponent } from './components/courseItem/courseItem.component';
+import { FormatDurationPipe } from './pipes/formatDuration.pipe'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CourseItemComponent } from './components/courseItem/courseItem.componen
     HeaderComponent,
     ToolboxComponent,
     CourseItemComponent,
-    ChangeBorderDirective
+    ChangeBorderDirective,
+    FormatDurationPipe
   ],
   imports: [
     CommonModule,
