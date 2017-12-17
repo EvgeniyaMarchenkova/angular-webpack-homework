@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+import { ChangeBorderDirective } from './directives/changeBorderDirective';
 import { CourseService } from '../core/services/course.service';
 import { AuthorizationService } from '../core/services/authorization.service';
 import { FooterComponent } from './components/footer/footer.component';
@@ -14,7 +15,8 @@ import { CourseItemComponent } from './components/courseItem/courseItem.componen
     FooterComponent,
     HeaderComponent,
     ToolboxComponent,
-    CourseItemComponent
+    CourseItemComponent,
+    ChangeBorderDirective
   ],
   imports: [
     CommonModule,

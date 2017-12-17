@@ -5,6 +5,7 @@ import { Modal } from 'ngx-modialog/plugins/bootstrap';
 
 import { CourseService } from '../../core/services/course.service';
 import { Course } from '../../shared/interfaces/course'
+import { ChangeBorderDirective } from '../../shared/directives/changeBorderDirective';
 
 @Component({
   selector: 'courses-list',
@@ -16,7 +17,8 @@ export class CoursesComponent implements OnInit{
   isUpdating: boolean;
 
   constructor(private courseService: CourseService,
-              public modal: Modal) {}
+              public modal: Modal,
+              public changeBorderDirective: ChangeBorderDirective) {}
 
   ngOnInit() {
     this.allCourses = this.courseService.getAllCourses();

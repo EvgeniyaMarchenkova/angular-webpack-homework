@@ -2,13 +2,13 @@ import { Directive, Input, ElementRef } from '@angular/core';
 import * as moment from 'moment';
 
 @Directive({
-  selector: '[xprsBackToPreviousPage]'
+  selector: '[changeBorderDirective]'
 })
-export class changeBorderDirective {
+export class ChangeBorderDirective {
   @Input('changeBorderDirective') creatingDate: moment.Moment;
 
   constructor(el: ElementRef) {
-    if (this.creatingDate > Date()) {
+    if (this.creatingDate.isBefore(moment(new Date()))) {
       el.nativeElement.style.backgroundColor = 'yellow';
     }
     else  {
