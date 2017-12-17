@@ -6,7 +6,8 @@
   <div class="row">
     <item *ngFor="let course of allCourses"
           [data]="course"
-          (idCourse)="deleteCourse($event)">
+          (idCourse)="deleteCourse($event)"
+          [changeBorderDirective]="course.creatingDate">
     </item>
   </div>
   <footer class="footer">

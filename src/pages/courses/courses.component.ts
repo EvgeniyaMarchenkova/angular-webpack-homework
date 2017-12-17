@@ -3,8 +3,8 @@ import * as moment from 'moment';
 import { Overlay } from 'ngx-modialog';
 import { Modal } from 'ngx-modialog/plugins/bootstrap';
 
-import { CourseService } from '../../services/course.service';
-import { Course } from '../../interfaces'
+import { CourseService } from '../../core/services/course.service';
+import { Course } from '../../shared/interfaces/course'
 
 @Component({
   selector: 'courses-list',

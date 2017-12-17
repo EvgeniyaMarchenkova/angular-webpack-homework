@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 
-import { SharedModule } from '../components/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { CoursesModule } from '../pages/courses/courses.module';
 import { LoginModule } from '../pages/login/login.module';
-import { CourseService } from '../services/course.service';
-import { AuthorizationService } from '../services/authorization.service';
+import { CourseService } from '../core/services/course.service';
+import { AuthorizationService } from '../core/services/authorization.service';
 import { AppComponent } from './app.component';
 
 @NgModule({

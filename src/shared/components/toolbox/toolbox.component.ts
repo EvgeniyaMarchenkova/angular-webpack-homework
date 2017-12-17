@@ -1,11 +1,11 @@
 import { Component,  OnInit } from '@angular/core';
 
-import { CourseService } from '../../services/course.service';
+import { CourseService } from '../../../core/services/course.service';
 
 @Component({
   selector: 'toolbox',
-  templateUrl: './toolbox.component.html',
-  styleUrls: ['./toolbox.component.scss']
+  templateUrl: 'toolbox.component.html',
+  styleUrls: ['toolbox.component.scss']
 })
 export class ToolboxComponent implements OnInit {
   isCreating: boolean;
