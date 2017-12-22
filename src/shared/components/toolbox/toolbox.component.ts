@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { CourseService } from '../../../core/services/course.service';
 
@@ -13,6 +13,7 @@ export class ToolboxComponent implements OnInit {
   private titleNewCourse: string;
   private descriptionNewCourse: string;
   private durationNewCourse: string;
+  @Output() searchString: EventEmitter<string> = new EventEmitter();
 
   ngOnInit() {
     this.findCourseValue = '';
@@ -25,8 +26,7 @@ export class ToolboxComponent implements OnInit {
     this.titleNewCourse = '';
     this.descriptionNewCourse = '';
     this.durationNewCourse = '';
-}
-
+  }
 
   saveCourse() {
     this.courseService.createCourse(this.titleNewCourse, this.descriptionNewCourse, this.durationNewCourse);
@@ -37,5 +37,9 @@ export class ToolboxComponent implements OnInit {
   cancelCreating() {
     this.resetForm();
     this.isCreating = false;
+  }
+
+  findCourses(searchString) {
+    this.searchString.emit(searchString);
   }
 }

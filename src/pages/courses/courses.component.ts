@@ -4,19 +4,20 @@ import { Overlay } from 'ngx-modialog';
 import { Modal } from 'ngx-modialog/plugins/bootstrap';
 
 import { CourseService } from '../../core/services/course.service';
-import { Course } from '../../shared/interfaces/course'
-
+import { Course } from '../../shared/interfaces/course';
 
 @Component({
-  selector: 'courses-list',
+  selector: 'app-courses-list',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss']
+  styleUrls: ['./courses.component.scss'],
+
 })
-export class CoursesComponent implements OnInit{
-  allCourses: Course[]=[];
+export class CoursesComponent implements OnInit {
+  allCourses: Course[] = [];
   isUpdating: boolean;
   countCourses: number;
   noCourses: boolean;
+  searchString: string;
 
   constructor(private courseService: CourseService,
               public modal: Modal) {}
@@ -26,28 +27,24 @@ export class CoursesComponent implements OnInit{
     if (this.allCourses) {
       this.countCourses = this.allCourses.length;
       this.noCourses = false;
-    }
-    else {
+    } else {
       this.countCourses = 0;
       this.noCourses = true;
     }
-
     this.isUpdating = false;
   }
 
   deleteCourse(id) {
-    const isDelete = confirm("Do you really want to delete this course?");
+    const isDelete = confirm('Do you really want to delete this course?');
     if (isDelete) {
       this.courseService.deleteCourse(id);
       if (this.countCourses > 1) {
         this.countCourses--;
-      }
-      else {
+      } else {
         this.noCourses = true;
       }
     }
   }
-
 
   updateCourse(id) {
     this.isUpdating = true;

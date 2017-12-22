@@ -9,7 +9,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ToolboxComponent } from './components/toolbox/toolbox.component';
 import { CourseItemComponent } from './components/courseItem/courseItem.component';
-import { FormatDurationPipe } from './pipes/formatDuration.pipe'
+import { FormatDurationPipe } from './pipes/formatDuration.pipe';
+import { OrderByDatePipe } from './pipes/orderByDate.pipe';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormatDurationPipe } from './pipes/formatDuration.pipe'
     ToolboxComponent,
     CourseItemComponent,
     ChangeBorderDirective,
-    FormatDurationPipe
+    FormatDurationPipe,
+    OrderByDatePipe,
+    SearchPipe
   ],
   imports: [
     CommonModule,
@@ -32,4 +36,4 @@ import { FormatDurationPipe } from './pipes/formatDuration.pipe'
     CourseItemComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

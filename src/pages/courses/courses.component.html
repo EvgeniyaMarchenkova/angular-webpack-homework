@@ -1,7 +1,7 @@
 <div class="container">
     <education-header></education-header>
   <div class="row">
-    <toolbox></toolbox>
+    <toolbox (searchString)="$event"></toolbox>
   </div>
   <div class="row">
     <div class="no-courses-message" *ngIf="noCourses">
