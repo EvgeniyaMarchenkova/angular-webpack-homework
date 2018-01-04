@@ -1,13 +1,13 @@
 <div class="container">
     <education-header></education-header>
   <div class="row">
-    <toolbox (searchString)="$event"></toolbox>
+    <toolbox (searchString)="find(allCourses, $event)"></toolbox>
   </div>
   <div class="row">
     <div class="no-courses-message" *ngIf="noCourses">
       No data. Feel free to add new courses.
     </div>
-    <item *ngFor="let course of allCourses"
+    <item *ngFor="let course of (allCourses | orderByDate)"
           [data]="course"
           (idCourse)="deleteCourse($event)">
     </item>

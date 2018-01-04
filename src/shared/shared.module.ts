@@ -28,12 +28,17 @@ import { SearchPipe } from './pipes/search.pipe';
     CommonModule,
     FormsModule
   ],
-  providers: [CourseService, AuthorizationService],
+  providers: [
+    CourseService,
+    AuthorizationService,
+    SearchPipe
+  ],
   exports: [
     FooterComponent,
     HeaderComponent,
     ToolboxComponent,
-    CourseItemComponent
+    CourseItemComponent,
+    OrderByDatePipe
   ]
 })
 export class SharedModule {}

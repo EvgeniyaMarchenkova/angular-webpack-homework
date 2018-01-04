@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewContainerRef  } from '@angular/core';
 import * as moment from 'moment';
 import { Overlay } from 'ngx-modialog';
-import { Modal } from 'ngx-modialog/plugins/bootstrap';
 
 import { CourseService } from '../../core/services/course.service';
 import { Course } from '../../shared/interfaces/course';
+import { SearchPipe } from '../../shared/pipes/search.pipe';
 
 @Component({
   selector: 'app-courses-list',
@@ -20,7 +20,7 @@ export class CoursesComponent implements OnInit {
   searchString: string;
 
   constructor(private courseService: CourseService,
-              public modal: Modal) {}
+              public searchPipe: SearchPipe) {}
 
   ngOnInit() {
     this.allCourses = this.courseService.getAllCourses();
@@ -48,5 +48,9 @@ export class CoursesComponent implements OnInit {
 
   updateCourse(id) {
     this.isUpdating = true;
+  }
+
+  find(allCourses, str) {
+    this.allCourses = this.searchPipe.transform(allCourses, str);
   }
 }
