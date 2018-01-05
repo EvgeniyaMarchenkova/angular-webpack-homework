@@ -16,8 +16,11 @@ export class CoursesComponent implements OnInit {
   allCourses: Course[] = [];
   isUpdating: boolean;
   countCourses: number;
-  noCourses: boolean;
   searchString: string;
+
+  get noCourses() {
+    return this.courseService.getAllCourses().length === 0;
+  }
 
   constructor(private courseService: CourseService,
               public searchPipe: SearchPipe) {}
@@ -26,10 +29,8 @@ export class CoursesComponent implements OnInit {
     this.allCourses = this.courseService.getAllCourses();
     if (this.allCourses) {
       this.countCourses = this.allCourses.length;
-      this.noCourses = false;
     } else {
       this.countCourses = 0;
-      this.noCourses = true;
     }
     this.isUpdating = false;
   }
@@ -40,8 +41,6 @@ export class CoursesComponent implements OnInit {
       this.courseService.deleteCourse(id);
       if (this.countCourses > 1) {
         this.countCourses--;
-      } else {
-        this.noCourses = true;
       }
     }
   }

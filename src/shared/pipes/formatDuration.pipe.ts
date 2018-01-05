@@ -7,6 +7,9 @@ export class FormatDurationPipe implements PipeTransform {
   transform(durationMins: number) {
     const h = durationMins / 60 | 0,
           m = durationMins % 60 | 0;
-    return h + 'h ' + m + 'min ';
+    if (h === 0) {
+      return m + 'min';
+    }
+    return h + 'h ' + m + 'min';
   }
 }

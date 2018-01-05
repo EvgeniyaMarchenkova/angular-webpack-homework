@@ -10,7 +10,7 @@ export class SearchPipe implements PipeTransform {
   transform(str: string) {
     if (str) {
       return this.courseService.getAllCourses().filter((task) => {
-        return task.title.indexOf(str) > -1;
+        return task.title.toLowerCase().indexOf(str.toLowerCase()) > -1;
       });
     }
     return this.courseService.getAllCourses();

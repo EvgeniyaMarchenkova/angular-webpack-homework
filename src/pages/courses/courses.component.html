@@ -4,16 +4,18 @@
     <toolbox (searchString)="find($event)"></toolbox>
   </div>
   <div class="row">
-    <div class="no-courses-message" *ngIf="noCourses">
+    <div class="no-courses-message" *ngIf="noCourses;else listCourses">
       No data. Feel free to add new courses.
     </div>
-    <item *ngFor="let course of (allCourses | orderByDate)"
-          [data]="course"
-          (idCourse)="deleteCourse($event)">
-    </item>
   </div>
   <footer class="footer">
     <education-footer></education-footer>
   </footer>
 </div>
+<ng-template #listCourses>
+  <item *ngFor="let course of (allCourses | orderByDate)"
+        [data]="course"
+        (idCourse)="deleteCourse($event)">
+  </item>
+</ng-template>
 
