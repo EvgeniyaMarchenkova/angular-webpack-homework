@@ -50,7 +50,7 @@ export class CoursesComponent implements OnInit {
     this.isUpdating = true;
   }
 
-  find(allCourses, str) {
-    this.allCourses = this.searchPipe.transform(allCourses, str);
+  find(str) {
+    this.allCourses = this.searchPipe.transform(str);
   }
 }
