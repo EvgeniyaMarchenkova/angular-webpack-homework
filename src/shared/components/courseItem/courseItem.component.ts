@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 import { Course } from '../../interfaces/course';
 import { ChangeBorderDirective } from '../../../shared/directives/changeBorderDirective';
@@ -6,9 +6,10 @@ import { ChangeBorderDirective } from '../../../shared/directives/changeBorderDi
 
 @Component({
   selector: 'item',
-  providers:[ ChangeBorderDirective],
+  providers: [ChangeBorderDirective],
   templateUrl: 'courseItem.component.html',
-  styleUrls: ['courseItem.component.scss']
+  styleUrls: ['courseItem.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseItemComponent {
   @Input() data: Course;

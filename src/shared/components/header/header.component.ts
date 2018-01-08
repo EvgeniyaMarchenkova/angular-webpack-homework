@@ -8,7 +8,7 @@ import { AuthorizationService } from '../../../core/services/authorization.servi
   styleUrls: ['header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private authorizationService: AuthorizationService) {
+  constructor(public authorizationService: AuthorizationService) {
     this.authorizationService.login('zhenya', 111);
   }
 }

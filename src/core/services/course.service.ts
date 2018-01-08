@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import * as moment from "moment";
+import * as moment from 'moment';
 
 const allCourses = [
   {
     id: 112,
-    title: 'Testing PO',
+    title: 'Testing',
     creatingDate: moment('2017-12-12T00:00:00-06:00'),
     duration: 880,
     topRated: true,
@@ -13,7 +13,7 @@ const allCourses = [
   },
   {
     id: 22,
-    title: 'Course Test Proctoring Services',
+    title: 'Test Proctoring Services',
     creatingDate: moment('2018-01-01T00:00:00-06:00'),
     duration: 110,
     topRated: false,
@@ -21,7 +21,7 @@ const allCourses = [
   },
   {
     id: 315,
-    title: 'Requesting Test Proctoring',
+    title: 'Requesting Proctoring',
     creatingDate: moment('2016-01-01T00:00:00-06:00'),
     duration: 300,
     topRated: false,

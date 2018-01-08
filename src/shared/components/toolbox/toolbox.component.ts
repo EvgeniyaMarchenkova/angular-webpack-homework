@@ -9,14 +9,13 @@ import { CourseService } from '../../../core/services/course.service';
 })
 export class ToolboxComponent implements OnInit {
   isCreating: boolean;
-  private findCourseValue: string;
+  public findCourseString: string;
   private titleNewCourse: string;
   private descriptionNewCourse: string;
   private durationNewCourse: string;
   @Output() searchString: EventEmitter<string> = new EventEmitter();
 
   ngOnInit() {
-    this.findCourseValue = '';
     this.isCreating = false;
   }
 
