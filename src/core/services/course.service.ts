@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 
 const allCourses = [
   {
@@ -27,7 +30,6 @@ const allCourses = [
     topRated: false,
     description: 'The CFAA proctors D2L-based tests for ETSU courses by instructor request. Instructors can create their tests in D2L and then arrange with the Testing staff for their tests to be administered in the Center for students to take at any time Testing Services is open.'
   }
-
 ]
 
 @Injectable()
@@ -35,7 +37,7 @@ export class CourseService {
   constructor() {}
 
   getAllCourses() {
-    return allCourses;
+    return Observable.of(allCourses);
   }
 
   findCourse(idCourse: number) {
@@ -48,7 +50,7 @@ export class CourseService {
                     creatingDate: moment(),
                     duration: duration,
                     topRated: false,
-                    description: description})
+                    description: description});
   }
 
   updateCourse(id) {

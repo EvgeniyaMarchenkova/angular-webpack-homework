@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef  } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewContainerRef} from '@angular/core';
 import * as moment from 'moment';
 import { Overlay } from 'ngx-modialog';
 
@@ -9,29 +9,36 @@ import { SearchPipe } from '../../shared/pipes/search.pipe';
 @Component({
   selector: 'app-courses-list',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss'],
-
+  styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
   allCourses: Course[] = [];
+  filteredCourses: Course[] = [];
   isUpdating: boolean;
   countCourses: number;
   searchString: string;
 
   get noCourses() {
-    return this.courseService.getAllCourses().length === 0;
+    return this.allCourses.length === 0;
   }
 
   constructor(private courseService: CourseService,
               public searchPipe: SearchPipe) {}
 
   ngOnInit() {
-    this.allCourses = this.courseService.getAllCourses();
-    if (this.allCourses) {
-      this.countCourses = this.allCourses.length;
-    } else {
-      this.countCourses = 0;
-    }
+    this.courseService.getAllCourses().subscribe(
+       (res) => {
+        this.allCourses = res;
+        this.countCourses = this.allCourses.length;
+        this.find();
+      },
+       (err) => {
+        this.countCourses = 0;
+        console.log('Error: ' + err);
+      },
+       () => {
+        console.log('Completed');
+      });
     this.isUpdating = false;
   }
 
@@ -39,7 +46,7 @@ export class CoursesComponent implements OnInit {
     const isDelete = confirm('Do you really want to delete this course?');
     if (isDelete) {
       this.courseService.deleteCourse(id);
-      if (this.countCourses > 1) {
+      if (this.countCourses > 0) {
         this.countCourses--;
       }
     }
@@ -49,7 +56,7 @@ export class CoursesComponent implements OnInit {
     this.isUpdating = true;
   }
 
-  find(str) {
-    this.allCourses = this.searchPipe.transform(str);
+  find(str?) {
+     this.filteredCourses = this.searchPipe.transform(str, this.allCourses);
   }
 }
