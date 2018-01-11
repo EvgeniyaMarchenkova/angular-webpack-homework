@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import {Subject} from 'rxjs/Subject';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthorizationService {
-  isAuthenticated: boolean = false;
-  constructor() {}
+  isLoginSubject: Subject<string>;
+
+  constructor() {
+    this.isLoginSubject = new ReplaySubject(null);
+  }
 
   login(username, password) {
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
-    this.isAuthenticated = true;
+    this.isLoginSubject.next(username);
   }
 
   logout() {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
-    this.isAuthenticated = false;
+    this.isLoginSubject.next(null);
   }
 
-  get userInfo() {
-    return {login: localStorage.getItem('username'), password: localStorage.getItem('password')};
+  isLoggedIn(): Observable<string> {
+    return this.isLoginSubject.asObservable();
   }
 }

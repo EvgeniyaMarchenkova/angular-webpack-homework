@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { AuthorizationService } from '../../../core/services/authorization.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'education-header',
@@ -8,7 +9,9 @@ import { AuthorizationService } from '../../../core/services/authorization.servi
   styleUrls: ['header.component.scss']
 })
 export class HeaderComponent {
+  isLoggedIn: Observable<string>;
+
   constructor(public authorizationService: AuthorizationService) {
-    this.authorizationService.login('zhenya', 111);
+    this.isLoggedIn = this.authorizationService.isLoggedIn();
   }
 }
