@@ -1,5 +1,5 @@
 <div class="row course-section"
-     [changeBorderDirective]="data.creatingDate"
+     [changeBorderDirective]="data.date"
      [ngClass]="{'top-rated-course': data.topRated}">
   <div class="col">
     <div class="course-info">
@@ -11,7 +11,7 @@
       </div>
       <div>
         <span class="bolder">Created:</span>
-        {{data.creatingDate | date: 'dd/MM/yyyy'}}
+        {{data.date | date: 'dd/MM/yyyy'}}
       </div>
     </div>
   </div>

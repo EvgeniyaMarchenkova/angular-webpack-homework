@@ -7,9 +7,9 @@ import { Course } from '../interfaces/course';
 export class OrderByDatePipe implements PipeTransform {
   transform(arr: Course[]) {
     return arr.sort(function(a, b) {
-      if (b.creatingDate.isBefore(a.creatingDate)) {
+      if (b.date.isBefore(a.date)) {
         return -1;
-      } else if (a.creatingDate.isBefore(b.creatingDate)) {
+      } else if (a.date.isBefore(b.date)) {
         return 1;
       } else {
         return 0 ;

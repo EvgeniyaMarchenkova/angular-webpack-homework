@@ -16,7 +16,7 @@ export class SearchPipe implements PipeTransform {
             return task.title.toLowerCase().indexOf(str.toLowerCase()) > -1;
           });
         } else {
-          filteredArr = allCourses;
+          filteredArr = res;
         }
       },
       (err) => {

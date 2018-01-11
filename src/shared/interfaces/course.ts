@@ -3,8 +3,8 @@ import * as moment from 'moment';
 export  interface Course {
   id: any;
   title: string;
-  creatingDate: moment.Moment;
+  date: moment.Moment;
   duration: number;
-  topRated: boolean,
+  topRated: boolean;
   description: string;
 }

@@ -5,19 +5,18 @@ import * as moment from 'moment';
   selector: '[changeBorderDirective]'
 })
 export class ChangeBorderDirective implements OnInit {
-  @Input('changeBorderDirective') creatingDate: moment.Moment;
+  @Input('changeBorderDirective') date: moment.Moment;
 
   constructor(protected el: ElementRef) {}
 
   ngOnInit() {
     const currentDate = moment(Date());
-    if (this.creatingDate.isBefore(currentDate)) {
-      const creatingDatetAddTwoWeeks = this.creatingDate.add(2, 'week');
-      if (creatingDatetAddTwoWeeks.isAfter(currentDate)) {
+    if (this.date.isBefore(currentDate)) {
+      const dateAddTwoWeeks = this.date.add(2, 'week');
+      if (dateAddTwoWeeks.isAfter(currentDate)) {
         this.el.nativeElement.style.border = '2px solid darkgreen';
       }
-    }
-    else  {
+    } else  {
       this.el.nativeElement.style.border = '2px solid darkblue';
     }
 
