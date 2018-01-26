@@ -13,7 +13,7 @@
   </footer>
 </div>
 <ng-template #listCourses>
-  <item *ngFor="let course of (filteredCourses | orderByDate)"
+  <item *ngFor="let course of (allCourses$ | async) "
         [data]="course"
         (idCourse)="deleteCourse($event)">
   </item>

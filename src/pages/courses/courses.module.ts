@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CourseService } from '../../core/services/course.service';
 import { AuthorizationService } from '../../core/services/authorization.service';
 import { CoursesComponent } from './courses.component';
-import { SharedModule } from "../../shared/shared.module";
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
