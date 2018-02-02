@@ -36,7 +36,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           this.allCourses$ = res;
-          console.log(this.allCourses$);
           this.filteredCourses = res.filter(course => course.date.add(2, 'week').isAfter(moment()))
             .reduce((prevResult, x) => {
               prevResult.push(x);
