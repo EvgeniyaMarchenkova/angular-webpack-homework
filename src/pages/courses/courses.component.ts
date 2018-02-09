@@ -17,14 +17,14 @@ import 'rxjs/add/operator/filter';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
   allCourses$: Course[] = [];
-  filteredCourses: Course[] = [];
+  filteredCourses$: Course[] = [];
   isUpdating: boolean;
   countCourses: number;
   searchString: string;
   allCourseseSubscription: Subscription;
 
   get noCourses() {
-    return this.filteredCourses.length === 0;
+    return this.filteredCourses$.length === 0;
   }
 
   constructor(private courseService: CourseService,
@@ -36,7 +36,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           this.allCourses$ = res;
-          this.filteredCourses = res.filter(course => course.date.add(2, 'week').isAfter(moment()))
+          this.filteredCourses$ = res.filter(course => course.date.add(2, 'week').isAfter(moment()))
             .reduce((prevResult, x) => {
               prevResult.push(x);
               return prevResult;
@@ -91,7 +91,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   find(str?) {
-    this.filteredCourses = this.searchPipe.transform(str, this.allCourses$);
+    this.filteredCourses$ = this.searchPipe.transform(str || '', this.allCourses$);
   }
 
   ngOnDestroy() {
