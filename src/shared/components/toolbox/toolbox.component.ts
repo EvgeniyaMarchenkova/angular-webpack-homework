@@ -28,9 +28,15 @@ export class ToolboxComponent implements OnInit {
   }
 
   saveCourse() {
-    this.courseService.createCourse(this.titleNewCourse, this.descriptionNewCourse, this.durationNewCourse);
-    this.resetForm();
-    this.isCreating = false;
+    this.courseService.createCourse(this.titleNewCourse, this.descriptionNewCourse, this.durationNewCourse)
+      .subscribe(
+        () => {
+          this.resetForm();
+          this.isCreating = false;
+          console.log('lesson saved successfully')
+        },
+        console.error
+      );
   }
 
   cancelCreating() {

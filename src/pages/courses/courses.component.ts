@@ -79,7 +79,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   deleteCourse(id) {
     const isDelete = confirm('Do you really want to delete this course?');
     if (isDelete) {
-      this.courseService.deleteCourse(id);
+      this.courseService.deleteCourse(id).subscribe();
       if (this.countCourses > 0) {
         this.countCourses--;
       }

@@ -2,33 +2,39 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders} from "@angular/common/http";
+import 'rxjs/add/operator/do';
+import {RequestOptions} from "@angular/http";
 
 @Injectable()
 export class AuthorizationService {
   isLoginSubject: Subject<string>;
+  userData: any;
 
-  constructor() {
-    this.isLoginSubject = new ReplaySubject(1);
-    this.isLoginSubject.next(this.userName());
+  constructor( public http: HttpClient ) {
   }
 
-  login(username, password) {
-    localStorage.setItem('username', username);
-    localStorage.setItem('password', password);
-    this.isLoginSubject.next(username);
+  getUser(id) {
+      const  httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': 'my-auth-token'
+      })
+      };
+      this.http.get(`http://localhost:3008/users/${id}`, httpOptions)
+          .subscribe((res) => {
+            this.userData = res;
+            return res;
+      });
   }
 
   logout() {
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
-    this.isLoginSubject.next(null);
   }
 
-  isLoggedIn(): Observable<string> {
-    return this.isLoginSubject.asObservable();
+  isLoggedIn() {
+    return this.userData;
   }
 
-  private userName(): string {
-    return localStorage.getItem('username');
+  private userName() {
   }
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
     SharedModule,
     LoginModule,
     CoursesModule,
-    HttpModule,
+    HttpClientModule,
     ModalModule.forRoot(),
     BootstrapModalModule
   ],

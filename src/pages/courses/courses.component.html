@@ -13,7 +13,7 @@
   </footer>
 </div>
 <ng-template #listCourses>
-  <item *ngFor="let course of (allCourses$ | async) "
+  <item *ngFor="let course of (allCourses$) "
         [data]="course"
         (idCourse)="deleteCourse($event)">
   </item>

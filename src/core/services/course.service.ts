@@ -8,37 +8,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import {Subject} from 'rxjs/Subject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-
-
-const allCourses = [
-  {
-    id: 112,
-    title: 'Testing',
-    startDate: '2018-02-12T00:00:00-06:00',
-    duration: 880,
-    topRated: true,
-    description: 'The CFAA proctors D2L-based tests for ETSU courses by instructor request. Instructors can create their tests in D2L and then arrange with the Testing staff for their tests to be administered in the Center for students to take at any time Testing Services is open.',
-    date: null
-  },
-  {
-    id: 22,
-    title: 'Test Proctoring Services',
-    startDate: '2018-01-11T00:00:00-06:00',
-    duration: 110,
-    topRated: false,
-    description: 'The CFAA proctors D2L-based tests for ETSU courses by instructor request. Instructors can create their tests in D2L and then arrange with the Testing staff for their tests to be administered in the Center for students to take at any time Testing Services is open.',
-    date: null
-  },
-  {
-    id: 315,
-    title: 'Requesting Proctoring',
-    startDate: '2016-01-01T00:00:00-06:00',
-    duration: 300,
-    topRated: false,
-    description: 'The CFAA proctors D2L-based tests for ETSU courses by instructor request. Instructors can create their tests in D2L and then arrange with the Testing staff for their tests to be administered in the Center for students to take at any time Testing Services is open.',
-    date: null
-  }
-]
+import {HttpClient} from "@angular/common/http";
+import {HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 export class CourseService {
@@ -46,44 +17,38 @@ export class CourseService {
   subj: any;
   source: any;
 
-  constructor() {
-    this.subj = new BehaviorSubject(Observable.of(allCourses));
-  }
+  constructor( public http: HttpClient) {}
 
-  getAllCourses(): Observable<any> {
-    // this.subj =  Observable.of(allCourses)
-    //       .flatMap(course => course)
-    //       .map(course => {
-    //         course.date = moment(course.startDate);
-    //         return course;
-    //         })
-    //       .reduce( (prevResult, x) => {
-    //         prevResult.push(x);
-    //         return prevResult;
-    //       }, []);
-    return this.subj.asObservable().map(course => {
-        course.value.forEach((item) =>  {
-            item.date = moment(course.startDate);
+  getAllCourses(): any {
+    return this.http.get(`http://localhost:3000/courses`).map(courses => {
+      courses.forEach((item) =>  {
+            item.date = moment(item.startDate);
             return item;
         }
-    )
-        course.date = moment(course.startDate);
-        return course;
+      )
+      return courses;
     });
   }
 
   findCourse(idCourse: number) {
-    return _.find(allCourses, {id: idCourse});
+    // return _.find(allCourses, {id: idCourse});
   }
 
   createCourse(title, description, duration) {
-    allCourses.push({id: moment() + title,
-                    title: title,
-                    startDate: moment().toString(),
-                    duration: duration,
-                    topRated: false,
-                    description: description,
-                    date: null});
+    const  httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'my-auth-token'
+      })
+    };
+    const newCourse = {id: moment() + title,
+                      title: title,
+                      startDate: moment().toString(),
+                      duration: duration,
+                      topRated: false,
+                      description: description,
+                      date: null};
+    return this.http.post(`http://localhost:3000/courses`, JSON.stringify(newCourse), httpOptions);
   }
 
   updateCourse(id) {
@@ -91,8 +56,12 @@ export class CourseService {
   }
 
   deleteCourse(id) {
-    const deletedCourseIndex = _.indexOf(allCourses, this.findCourse(id));
-    allCourses.splice(deletedCourseIndex, 1);
-    this.subj.next(allCourses);
+    const  httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'my-auth-token'
+      })
+    };
+    return this.http.delete(`http://localhost:3000/courses/${id}`, httpOptions);
   }
 }

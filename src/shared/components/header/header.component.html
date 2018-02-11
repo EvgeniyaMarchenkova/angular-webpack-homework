@@ -1,12 +1,12 @@
 <div class="header">
       <div>Logo</div>
       <a href="#"
-         (click)="authorizationService.login('Zhenya', 111)"
-         *ngIf="!(isLoggedIn | async)"
+         (click)="login('6093')"
+         *ngIf="!(isLoggedIn)"
       >Login</a>
-      <div *ngIf="isLoggedIn | async"
+      <div *ngIf="userData | async"
            class="login">
-        <div>Nick</div>
+        <div>{{userData.login}}</div>
         <div>
           <a href="#"
             (click)="authorizationService.logout()"
