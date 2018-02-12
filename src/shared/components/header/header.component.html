@@ -4,7 +4,7 @@
          (click)="login('6093')"
          *ngIf="!(isLoggedIn)"
       >Login</a>
-      <div *ngIf="userData | async"
+      <div *ngIf="userData"
            class="login">
         <div>{{userData.login}}</div>
         <div>

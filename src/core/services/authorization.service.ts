@@ -21,11 +21,7 @@ export class AuthorizationService {
           'Authorization': 'my-auth-token'
       })
       };
-      this.http.get(`http://localhost:3008/users/${id}`, httpOptions)
-          .subscribe((res) => {
-            this.userData = res;
-            return res;
-      });
+      return this.http.get(`http://localhost:3008/users/${id}`, httpOptions);
   }
 
   logout() {

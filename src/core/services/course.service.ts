@@ -8,8 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import {Subject} from 'rxjs/Subject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {HttpClient} from "@angular/common/http";
-import {HttpHeaders} from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class CourseService {
@@ -21,8 +20,8 @@ export class CourseService {
 
   getAllCourses(): any {
     return this.http.get(`http://localhost:3000/courses`).map(courses => {
-      courses.forEach((item) =>  {
-            item.date = moment(item.startDate);
+        _.forEach(courses, (item) =>  {
+            item.date = moment(item.date);
             return item;
         }
       )
@@ -30,8 +29,16 @@ export class CourseService {
     });
   }
 
-  findCourse(idCourse: number) {
-    // return _.find(allCourses, {id: idCourse});
+  findCourse(query) {
+      const  httpOptions = {
+          headers: new HttpHeaders({
+              'Content-Type':  'application/json',
+              'Authorization': 'my-auth-token'
+          }),
+          params: new HttpParams().set('name', query)
+      };
+
+      return this.http.get(`http://localhost:3000/courses`, httpOptions);
   }
 
   createCourse(title, description, duration) {
@@ -43,11 +50,10 @@ export class CourseService {
     };
     const newCourse = {id: moment() + title,
                       title: title,
-                      startDate: moment().toString(),
                       duration: duration,
                       topRated: false,
                       description: description,
-                      date: null};
+                      date: moment().toString()};
     return this.http.post(`http://localhost:3000/courses`, JSON.stringify(newCourse), httpOptions);
   }
 

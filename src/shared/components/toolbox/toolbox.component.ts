@@ -33,7 +33,7 @@ export class ToolboxComponent implements OnInit {
         () => {
           this.resetForm();
           this.isCreating = false;
-          console.log('lesson saved successfully')
+          console.log('lesson saved successfully');
         },
         console.error
       );

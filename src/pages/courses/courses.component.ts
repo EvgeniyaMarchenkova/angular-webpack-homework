@@ -17,14 +17,14 @@ import 'rxjs/add/operator/filter';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
   allCourses$: Course[] = [];
-  filteredCourses$: Course[] = [];
+  filteredCourses$: any;
   isUpdating: boolean;
   countCourses: number;
   searchString: string;
   allCourseseSubscription: Subscription;
 
   get noCourses() {
-    return this.filteredCourses$.length === 0;
+    return this.allCourses$.length === 0;
   }
 
   constructor(private courseService: CourseService,
@@ -36,11 +36,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           this.allCourses$ = res;
-          this.filteredCourses$ = res.filter(course => course.date.add(2, 'week').isAfter(moment()))
-            .reduce((prevResult, x) => {
-              prevResult.push(x);
-              return prevResult;
-            }, []);
+          this.filteredCourses$ = res.filter(course => course.date.add(2, 'week').isAfter(moment()));
         },
         (err) => {
           this.countCourses = 0;
@@ -50,29 +46,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
           console.log('Completed');
         })
     ;
-    // const latestCourseseSubscription = this.courseService.getAllCourses()
-    //   .flatMap(course => course)
-    //   .filter(course => course.date.add(2, 'week').isAfter(moment()))
-    //   .reduce((prevResult, x) => {
-    //     prevResult.push(x);
-    //     return prevResult;
-    //   }, [])
-    //   .subscribe(
-    //     (res) => {
-    //       this.filteredCourses = res;
-    //       this.countCourses = this.filteredCourses.length;
-    //
-    //
-    //     },
-    //     (err) => {
-    //       this.countCourses = 0;
-    //       console.log('Error: ' + err);
-    //     },
-    //     () => {
-    //       console.log('Completed');
-    //     })
-    //
-    // ;
     this.isUpdating = false;
   }
 
@@ -91,7 +64,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   find(str?) {
-    this.filteredCourses$ = this.searchPipe.transform(str || '', this.allCourses$);
+    this.courseService.findCourse(str || '').subscribe((res) => this.filteredCourses$ = res);
+    console.log(this.filteredCourses$);
   }
 
   ngOnDestroy() {
