@@ -35,7 +35,7 @@ export class CourseService {
               'Content-Type':  'application/json',
               'Authorization': 'my-auth-token'
           }),
-          params: new HttpParams().set('name', query)
+          params: new HttpParams().set('q', query)
       };
 
       return this.http.get(`http://localhost:3000/courses`, httpOptions);
