@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders} from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpXhrBackend} from '@angular/common/http';
 import 'rxjs/add/operator/do';
-import {RequestOptions} from "@angular/http";
 
 @Injectable()
-export class AuthorizationService {
+export class AuthorizationService extends HttpClient {
   isLoginSubject: Subject<string>;
   userData: any;
+  public token: string;
 
-  constructor( public http: HttpClient ) {
+  constructor( public http: HttpClient,
+               public backend: HttpXhrBackend) {
+      super(backend);
   }
 
   getUser(id) {

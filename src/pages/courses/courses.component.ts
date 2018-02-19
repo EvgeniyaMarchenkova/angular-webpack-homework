@@ -16,7 +16,7 @@ import 'rxjs/add/operator/filter';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit, OnDestroy {
-  allCourses$: Course[] = [];
+  allCourses$: any;
   filteredCourses$: any;
   isUpdating: boolean;
   countCourses: number;
@@ -24,7 +24,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   allCourseseSubscription: Subscription;
 
   get noCourses() {
-    return this.allCourses$.length === 0;
+    if (this.allCourses$) {
+        return this.allCourses$.length === 0;
+    }
   }
 
   constructor(private courseService: CourseService,
@@ -52,7 +54,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   deleteCourse(id) {
     const isDelete = confirm('Do you really want to delete this course?');
     if (isDelete) {
-      this.courseService.deleteCourse(id).subscribe();
+      this.courseService.deleteCourse(id).subscribe((res) =>  {
+        this.allCourses$ = res;
+      });
       if (this.countCourses > 0) {
         this.countCourses--;
       }
@@ -64,8 +68,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   find(str?) {
-    this.courseService.findCourse(str || '').subscribe((res) => this.filteredCourses$ = res);
-    console.log(this.filteredCourses$);
+    this.courseService.findCourse(str || '').subscribe( (res) => {
+          this.filteredCourses$ = res;
+        }
+    );
   }
 
   ngOnDestroy() {

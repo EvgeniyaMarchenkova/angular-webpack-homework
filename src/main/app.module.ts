@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '../shared/shared.module';
 import { CoursesModule } from '../pages/courses/courses.module';
@@ -24,6 +25,7 @@ import { AppComponent } from './app.component';
     CoursesModule,
     HttpClientModule,
     ModalModule.forRoot(),
+    NgbModule.forRoot(),
     BootstrapModalModule
   ],
   providers: [CourseService, AuthorizationService],

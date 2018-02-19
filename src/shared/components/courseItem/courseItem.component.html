@@ -1,5 +1,15 @@
 <div class="row course-section"
      [ngClass]="{'top-rated-course': data.topRated}">
+  <course-form course="data"
+               *ngIf="isUpdating;else courseInfo"></course-form>
+  <div class="col">
+    <button class="btn btn-primary">Edit course</button>
+    <button (click)="writeId(data.id)"
+            class="btn btn-primary" >Delete course</button>
+  </div>
+</div>
+
+<ng-template #courseInfo>
   <div class="col">
     <div class="course-info">
       <h2>{{data.name | uppercase}}</h2>
@@ -14,10 +24,5 @@
       </div>
     </div>
   </div>
-  <div class="col">
-    <button class="btn btn-primary">Edit course</button>
-    <button (click)="writeId(data.id)"
-            class="btn btn-primary" >Delete course</button>
-  </div>
-</div>
+</ng-template>
 

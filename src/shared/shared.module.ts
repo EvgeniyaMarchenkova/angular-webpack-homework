@@ -12,6 +12,7 @@ import { CourseItemComponent } from './components/courseItem/courseItem.componen
 import { FormatDurationPipe } from './pipes/formatDuration.pipe';
 import { OrderByDatePipe } from './pipes/orderByDate.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { CourseFormComponent } from './components/courseForm/courseForm.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SearchPipe } from './pipes/search.pipe';
     HeaderComponent,
     ToolboxComponent,
     CourseItemComponent,
+    CourseFormComponent,
     ChangeBorderDirective,
     FormatDurationPipe,
     OrderByDatePipe,
@@ -38,6 +40,7 @@ import { SearchPipe } from './pipes/search.pipe';
     HeaderComponent,
     ToolboxComponent,
     CourseItemComponent,
+    CourseFormComponent,
     OrderByDatePipe
   ]
 })
