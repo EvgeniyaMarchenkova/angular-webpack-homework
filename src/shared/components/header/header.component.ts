@@ -19,6 +19,6 @@ export class HeaderComponent implements OnInit{
   }
 
   login(id)  {
-    this.authorizationService.getUser(id).subscribe((res) => this.userData = res);
+    this.authorizationService.login('Warner', 'ea');
   }
 }

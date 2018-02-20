@@ -9,28 +9,43 @@ import 'rxjs/add/operator/do';
 export class AuthorizationService extends HttpClient {
   isLoginSubject: Subject<string>;
   userData: any;
-  public token: string;
+  token: any;
 
   constructor( public http: HttpClient,
                public backend: HttpXhrBackend) {
       super(backend);
   }
 
-  getUser(id) {
+  login(username, password) {
       const  httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
           'Authorization': 'my-auth-token'
       })
       };
-      return this.http.get(`http://localhost:3008/users/${id}`, httpOptions);
+      const body = {
+          login: username,
+          password: password
+      }
+      return this.http.post(`http://localhost:3000/auth/login`, body, httpOptions).subscribe((token: string) => {
+          this.token = token;
+          localStorage.setItem('token', token);
+      }, (err) => {
+          console.log(err);
+      });
   }
 
   logout() {
+    localStorage.removeItem('token');
+    this.token = null;
   }
 
   isLoggedIn() {
     return this.userData;
+  }
+
+  getAuthorizationToken() {
+    return this.token || '58ebfdf7f1f558c5c86e17f6';
   }
 
   private userName() {

@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit}
 
 import { Course } from '../../interfaces/course';
 import { ChangeBorderDirective } from '../../../shared/directives/changeBorderDirective';
+import { CourseService } from '../../../core/services/course.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class CourseItemComponent implements OnInit {
   @Output() idCourse: EventEmitter<number> = new EventEmitter();
   isUpdating: boolean;
 
-  constructor(public changeBorderDirective: ChangeBorderDirective) {}
+  constructor(public changeBorderDirective: ChangeBorderDirective,
+              private courseService: CourseService) {}
 
     ngOnInit() {
         this.isUpdating = false;
@@ -26,7 +28,10 @@ export class CourseItemComponent implements OnInit {
       this.idCourse.emit(id);
     }
 
-    updateCourse(id) {
-        this.isUpdating = true;
+    updateCourse() {
+        this.courseService.getCourse(this.data.id).subscribe((res) => {
+          this.data = res;
+          this.isUpdating = true;
+        });
     }
 }

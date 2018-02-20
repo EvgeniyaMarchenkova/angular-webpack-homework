@@ -21,15 +21,26 @@ export class CourseService {
   }
 
   getAllCourses(): any {
-    return this.http.get(`http://localhost:3000/courses`).map(courses => {
-        _.forEach(courses, (item) =>  {
-            item.date = moment(item.date);
-            return item;
-        }
-      )
-      return courses;
-    });
-  }
+        return this.http.get(`http://localhost:3000/courses`).map(courses => {
+            _.forEach(courses, (item) =>  {
+                    item.date = moment(item.date);
+                    return item;
+                }
+            )
+            return courses;
+        });
+    }
+
+    getCourse(id): any {
+        return this.http.get(`http://localhost:3000/courses/${id}`).map(courses => {
+            _.forEach(courses, (item) =>  {
+                    item.date = moment(item.date);
+                    return item;
+                }
+            )
+            return courses;
+        });
+    }
 
   findCourse(query) {
       const  httpOptions = {

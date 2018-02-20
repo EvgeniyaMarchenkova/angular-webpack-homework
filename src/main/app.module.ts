@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
@@ -12,6 +12,7 @@ import { LoginModule } from '../pages/login/login.module';
 import { CourseService } from '../core/services/course.service';
 import { AuthorizationService } from '../core/services/authorization.service';
 import { AppComponent } from './app.component';
+import { AuthInterceptor } from '../core/services/authInterceptor.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { AppComponent } from './app.component';
     NgbModule.forRoot(),
     BootstrapModalModule
   ],
-  providers: [CourseService, AuthorizationService],
+  providers: [ CourseService,
+               AuthorizationService,
+               {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

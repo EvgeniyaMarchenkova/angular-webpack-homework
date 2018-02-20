@@ -3,7 +3,8 @@
   <course-form course="data"
                *ngIf="isUpdating;else courseInfo"></course-form>
   <div class="col">
-    <button class="btn btn-primary">Edit course</button>
+    <button (click)="updateCourse(data.id)"
+            class="btn btn-primary">Edit course</button>
     <button (click)="writeId(data.id)"
             class="btn btn-primary" >Delete course</button>
   </div>
