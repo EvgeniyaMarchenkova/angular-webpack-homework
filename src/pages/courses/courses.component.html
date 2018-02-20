@@ -17,10 +17,10 @@
         [data]="course"
         (idCourse)="deleteCourse($event)">
   </item>
-  <ngb-pagination [collectionSize]="totalResults"
+  <ngb-pagination *ngIf="!isSearchResults"
+                  [collectionSize]="totalResults"
                   [(page)]="currentPage"
                   aria-label="Default pagination"
-                  [maxSize]="5"
                   (pageChange)="loadPage($event)"></ngb-pagination>
 </ng-template>
 

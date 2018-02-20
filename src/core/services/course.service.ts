@@ -23,7 +23,7 @@ export class CourseService {
   }
 
   getAllCourses(page): any {
-        return this.http.get(`http://localhost:3000/courses?_page=${page}&_limit=5`, { observe: 'response' }).map(res => {
+        return this.http.get(`http://localhost:3000/courses?_page=${page}`, { observe: 'response' }).map(res => {
             console.log(res);
             if (!this.totalCountCourses) {
                 this.totalCountCourses = Number(res.headers.get('X-Total-Count'));
@@ -64,8 +64,7 @@ export class CourseService {
   createCourse(title, description, duration) {
     const  httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'my-auth-token'
+        'Content-Type':  'application/json'
       })
     };
     const newCourse = {id: moment() + title,
@@ -84,8 +83,7 @@ export class CourseService {
   deleteCourse(id) {
     const  httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'my-auth-token'
+        'Content-Type':  'application/json'
       })
     };
     return this.http.delete(`http://localhost:3000/courses/${id}`, httpOptions);

@@ -12,8 +12,9 @@ export class CachingInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         // if (!isCachable(req)) { return next.handle(req); }
 
-        // const cachedResponse = this.cache.get(req);
-        return sendRequest(req, next, this.cache);
+        const cachedResponse = this.cache.get(req);
+        return cachedResponse ?
+            of(cachedResponse) : sendRequest(req, next, this.cache);
 
 
         function sendRequest(request, nextHundler, cache): Observable<HttpEvent<any>> {

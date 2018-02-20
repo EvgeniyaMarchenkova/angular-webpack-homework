@@ -19,8 +19,7 @@ export class AuthorizationService extends HttpClient {
   login(username, password) {
       const  httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type':  'application/json',
-          'Authorization': 'my-auth-token'
+          'Content-Type':  'application/json'
       })
       };
       const body = {

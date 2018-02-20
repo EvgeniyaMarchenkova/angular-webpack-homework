@@ -25,6 +25,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   totalResults: number;
   countPages: number;
   currentPage = 1;
+  isSearchResults = false;
 
   get noCourses() {
     if (this.allCourses$) {
@@ -38,6 +39,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getCourses(this.currentPage);
     this.isUpdating = false;
+    // this.isSearchResults = false;
   }
 
   getCourses(page) {
@@ -73,10 +75,16 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   find(str?) {
-    this.courseService.findCourse(str || '').subscribe( (res) => {
-          this.filteredCourses$ = res;
-        }
-    );
+    if (!str) {
+        this.isSearchResults = false;
+        this.getCourses(1);
+    } else {
+        this.courseService.findCourse(str).subscribe( (res) => {
+                this.filteredCourses$ = res;
+            }
+        );
+        this.isSearchResults = true;
+    }
   }
 
   loadPage(page) {
