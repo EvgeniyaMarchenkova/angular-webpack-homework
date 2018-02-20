@@ -1,23 +1,34 @@
 <div class="container">
     <h1>Course form</h1>
-    <form  #courseForm="ngForm">
+    <form  #courseForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text"
                    class="form-control"
                    id="title"
-                   [(ngModel)]="course.title"
+                   [(ngModel)]="title"
                    name="title"
-                   required>
+                   required
+                   maxlength="50">
         </div>
 
         <div class="form-group">
             <label for="duration">Duration</label>
             <input type="text"
                    class="form-control"
-                   [(ngModel)]="course.duration"
+                   [(ngModel)]="duration"
                    name="duration"
                    id="duration">
+        </div>
+
+        <div class="form-group">
+            <label for="duration">Date</label>
+            <input type="date"
+                   class="form-control"
+                   [(ngModel)]="duration"
+                   name="duration"
+                   id="date"
+                   required>
         </div>
 
         <div class="form-group">
@@ -25,9 +36,10 @@
             <input type="text"
                    class="form-control"
                    id="description"
-                   [(ngModel)]="course.description"
+                   [(ngModel)]="description"
                    name="description"
-                   required>
+                   required
+                   maxlength="500">
         </div>
 
         <button type="submit" class="btn btn-success">Submit</button>
