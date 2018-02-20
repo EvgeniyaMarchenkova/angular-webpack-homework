@@ -12,7 +12,7 @@ import { LoginModule } from '../pages/login/login.module';
 import { CourseService } from '../core/services/course.service';
 import { AuthorizationService } from '../core/services/authorization.service';
 import { AppComponent } from './app.component';
-import { AuthInterceptor } from '../core/services/authInterceptor.service';
+import { httpInterceptorProviders } from '../core/interceptors/index';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { AuthInterceptor } from '../core/services/authInterceptor.service';
   ],
   providers: [ CourseService,
                AuthorizationService,
-               {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+               httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

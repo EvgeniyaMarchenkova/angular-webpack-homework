@@ -9,7 +9,7 @@ export class SearchPipe implements PipeTransform {
 
   transform(str: string, allCourses) {
     let filteredArr = [];
-    this.courseService.getAllCourses().subscribe(
+    this.courseService.getAllCourses(1).subscribe(
       (res) => {
         if (str) {
           filteredArr = res.filter((task) => {

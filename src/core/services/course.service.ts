@@ -15,19 +15,26 @@ export class CourseService {
   allCourses: any;
   subj: any;
   source: any;
+  totalCountCourses: number;
+
 
   constructor( public http: HttpClient) {
       this.allCourses = <BehaviorSubject<any>>new BehaviorSubject([]);
   }
 
-  getAllCourses(): any {
-        return this.http.get(`http://localhost:3000/courses`).map(courses => {
-            _.forEach(courses, (item) =>  {
+  getAllCourses(page): any {
+        return this.http.get(`http://localhost:3000/courses?_page=${page}&_limit=5`, { observe: 'response' }).map(res => {
+            console.log(res);
+            if (!this.totalCountCourses) {
+                this.totalCountCourses = Number(res.headers.get('X-Total-Count'));
+            }
+            const courses = _.forEach(res.body, (item) =>  {
                     item.date = moment(item.date);
                     return item;
                 }
             )
-            return courses;
+            return { total: this.totalCountCourses,
+                     courses: courses };
         });
     }
 

@@ -22,6 +22,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   countCourses: number;
   searchString: string;
   allCourseseSubscription: Subscription;
+  totalResults: number;
+  countPages: number;
+  currentPage = 1;
 
   get noCourses() {
     if (this.allCourses$) {
@@ -30,32 +33,34 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   constructor(private courseService: CourseService,
-              public searchPipe: SearchPipe) {
-  }
+              public searchPipe: SearchPipe) {}
 
   ngOnInit() {
-    this.allCourseseSubscription = this.courseService.getAllCourses()
-      .subscribe(
-        (res) => {
-          this.allCourses$ = res;
-          this.filteredCourses$ = res;
-        },
-        (err) => {
-          this.countCourses = 0;
-          console.log('Error: ' + err);
-        },
-        () => {
-          console.log('Completed');
-        })
-    ;
+    this.getCourses(this.currentPage);
     this.isUpdating = false;
+  }
+
+  getCourses(page) {
+      this.allCourseseSubscription = this.courseService.getAllCourses(this.currentPage)
+          .subscribe(
+              (res) => {
+                  this.allCourses$ = res.courses;
+                  this.filteredCourses$ = res.courses;
+                  this.totalResults = res.total;
+              },
+              (err) => {
+                  this.countCourses = 0;
+                  console.log('Error: ' + err);
+              }, () => {
+                  console.log('Completed');
+          });
   }
 
   deleteCourse(id) {
     const isDelete = confirm('Do you really want to delete this course?');
     if (isDelete) {
       this.courseService.deleteCourse(id).subscribe((res) =>  {
-        this.allCourses$ = res;
+        this.getCourses(this.currentPage);
       });
       if (this.countCourses > 0) {
         this.countCourses--;
@@ -72,6 +77,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
           this.filteredCourses$ = res;
         }
     );
+  }
+
+  loadPage(page) {
+    this.currentPage = page;
+    this.getCourses(page);
   }
 
   ngOnDestroy() {
