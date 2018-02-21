@@ -1,7 +1,5 @@
 <div class="row course-section"
      [ngClass]="{'top-rated-course': data.topRated}">
-  <course-form course="data"
-               *ngIf="isUpdating;else courseInfo"></course-form>
   <div class="col">
     <button (click)="updateCourse(data.id)"
             class="btn btn-primary">Edit course</button>

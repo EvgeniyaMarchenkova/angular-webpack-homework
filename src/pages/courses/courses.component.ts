@@ -26,6 +26,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
   countPages: number;
   currentPage = 1;
   isSearchResults = false;
+  content = 'main';
+  isCreating: boolean;
 
   get noCourses() {
     if (this.allCourses$) {
@@ -39,6 +41,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getCourses(this.currentPage);
     this.isUpdating = false;
+    this.isCreating = false;
     // this.isSearchResults = false;
   }
 
@@ -92,7 +95,15 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.getCourses(page);
   }
 
+  openForm() {
+      this.content = 'course-form';
+  }
+
   ngOnDestroy() {
     this.allCourseseSubscription.unsubscribe();
+  }
+
+  cancelCreating() {
+      this.content = 'main';
   }
 }

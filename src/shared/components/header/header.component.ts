@@ -1,17 +1,19 @@
-import {Component, ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 
 import { AuthorizationService } from '../../../core/services/authorization.service';
 import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'education-header',
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit, OnDestroy{
   isAuthorizated = false;
-  userName: string;
+  userName: any;
   token: string;
+  userNameSubscription: Subscription;
 
   constructor(public authorizationService: AuthorizationService) {}
 
@@ -33,9 +35,13 @@ export class HeaderComponent implements OnInit{
 
   getName() {
       // this.userName = this.authorizationService.getUserInfo();
-      this.authorizationService.getUserInfo().subscribe((res: any) => {
+      this.userNameSubscription = this.authorizationService.getUserInfo().subscribe((res: any) => {
           this.userName = res.name.first + ' ' + res.name.last;
           this.isAuthorizated = true;
       });
+  }
+
+  ngOnDestroy() {
+      this.userNameSubscription.unsubscribe();
   }
 }

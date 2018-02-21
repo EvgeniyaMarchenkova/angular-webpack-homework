@@ -39,11 +39,6 @@ export class ToolboxComponent implements OnInit {
       );
   }
 
-  cancelCreating() {
-    this.resetForm();
-    this.isCreating = false;
-  }
-
   findCourses(searchString) {
     this.searchString.emit(searchString);
   }

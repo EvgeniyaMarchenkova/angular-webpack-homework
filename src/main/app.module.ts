@@ -13,6 +13,7 @@ import { CourseService } from '../core/services/course.service';
 import { AuthorizationService } from '../core/services/authorization.service';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '../core/interceptors/index';
+import {CourseFormModule} from '../pages/courseForm/courseForm.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { httpInterceptorProviders } from '../core/interceptors/index';
     SharedModule,
     LoginModule,
     CoursesModule,
+    CourseFormModule,
     HttpClientModule,
     ModalModule.forRoot(),
     NgbModule.forRoot(),
