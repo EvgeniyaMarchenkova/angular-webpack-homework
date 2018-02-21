@@ -52,8 +52,7 @@ export class CourseService {
   findCourse(query) {
       const  httpOptions = {
           headers: new HttpHeaders({
-              'Content-Type':  'application/json',
-              'Authorization': 'my-auth-token'
+              'Content-Type':  'application/json'
           }),
           params: new HttpParams().set('q', query)
       };

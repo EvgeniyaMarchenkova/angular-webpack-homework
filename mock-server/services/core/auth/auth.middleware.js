@@ -24,7 +24,7 @@ module.exports = (server) => {
 		let users = server.db.getState().users,
 			matchedUser = users.find((user) => {
 				console.log(user);
-				return user.fakeToken === req.header('Authorization');
+				return JSON.stringify(user.fakeToken) === req.header('Authorization');
 			});
 
 		if(!matchedUser) {

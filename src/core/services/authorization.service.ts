@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import * as localforage from 'localforage';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpXhrBackend} from '@angular/common/http';
@@ -26,9 +27,10 @@ export class AuthorizationService extends HttpClient {
           login: username,
           password: password
       }
-      return this.http.post(`http://localhost:3000/auth/login`, body, httpOptions).subscribe((token: string) => {
+      return this.http.post(`http://localhost:3004/auth/login`, body, httpOptions).subscribe((token: any) => {
           this.token = token;
-          localStorage.setItem('token', token);
+          localStorage.setItem('token', JSON.stringify(token.token));
+          this.getUserInfo();
       }, (err) => {
           console.log(err);
       });
@@ -39,14 +41,20 @@ export class AuthorizationService extends HttpClient {
     this.token = null;
   }
 
-  isLoggedIn() {
-    return this.userData;
+  isAuthorizated() {
+    return !!localStorage.getItem('token');
   }
 
   getAuthorizationToken() {
-    return this.token || '58ebfdf7f1f558c5c86e17f6';
+    return localStorage.getItem('token');
   }
 
-  private userName() {
+  getUserInfo() {
+    const  httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+        })
+    };
+    return this.http.post(`http://localhost:3004/auth/userinfo`, null, httpOptions);
   }
 }

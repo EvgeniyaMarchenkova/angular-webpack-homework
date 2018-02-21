@@ -2,8 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Course } from '../../../interfaces/course';
 import { CourseService } from '../../../../core/services/course.service';
 
-
-
 @Component({
     selector: 'course-form',
     templateUrl: './courseForm.component.html',

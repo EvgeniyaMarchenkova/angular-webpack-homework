@@ -1,15 +1,15 @@
 <div class="header">
       <div>Logo</div>
       <a href="#"
-         (click)="login('6093')"
-         *ngIf="!(isLoggedIn)"
+         (click)="login()"
+         *ngIf="!(isAuthorizated)"
       >Login</a>
-      <div *ngIf="userData"
-           class="login">
-        <div>{{userData.login}}</div>
+      <div *ngIf="isAuthorizated"
+              class="login">
+        <div>{{userName}}</div>
         <div>
           <a href="#"
-            (click)="authorizationService.logout()"
+            (click)="logout()"
             >Logout</a>
         </div>
       </div>

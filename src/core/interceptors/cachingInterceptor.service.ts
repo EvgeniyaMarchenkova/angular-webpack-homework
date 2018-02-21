@@ -11,24 +11,25 @@ export class CachingInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         // if (!isCachable(req)) { return next.handle(req); }
+        return next.handle(req);
 
-        const cachedResponse = this.cache.get(req);
-        return cachedResponse ?
-            of(cachedResponse) : sendRequest(req, next, this.cache);
-
-
-        function sendRequest(request, nextHundler, cache): Observable<HttpEvent<any>> {
-
-            const noHeaderReq = request.clone({ headers: new HttpHeaders() });
-
-            return nextHundler.handle(noHeaderReq).pipe(
-                tap(event => {
-                    if (event instanceof HttpResponse) {
-                        cache.put(request, event); // Update the cache.
-                    }
-                })
-            );
-        }
+        // const cachedResponse = this.cache.get(req);
+        // return cachedResponse ?
+        //     of(cachedResponse) : sendRequest(req, next, this.cache);
+        //
+        //
+        // function sendRequest(request, nextHundler, cache): Observable<HttpEvent<any>> {
+        //
+        //     const noHeaderReq = request.clone({ headers: new HttpHeaders() });
+        //
+        //     return nextHundler.handle(noHeaderReq).pipe(
+        //         tap(event => {
+        //             if (event instanceof HttpResponse) {
+        //                 cache.put(request, event); // Update the cache.
+        //             }
+        //         })
+        //     );
+        // }
     }
 
 

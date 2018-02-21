@@ -9,16 +9,33 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['header.component.scss']
 })
 export class HeaderComponent implements OnInit{
-  isLoggedIn: Observable<string>;
-  userData: any;
+  isAuthorizated = false;
+  userName: string;
+  token: string;
 
   constructor(public authorizationService: AuthorizationService) {}
 
   ngOnInit() {
-    this.isLoggedIn = this.authorizationService.isLoggedIn();
+    this.isAuthorizated = this.authorizationService.isAuthorizated();
+    this.getName();
   }
 
-  login(id)  {
-    this.authorizationService.login('Warner', 'ea');
+  login()  {
+    this.authorizationService.login('Dale', 'consequat');
+    this.isAuthorizated = true;
+    this.getName();
+  }
+
+  logout() {
+      this.authorizationService.logout();
+      this.isAuthorizated = false;
+  }
+
+  getName() {
+      // this.userName = this.authorizationService.getUserInfo();
+      this.authorizationService.getUserInfo().subscribe((res: any) => {
+          this.userName = res.name.first + ' ' + res.name.last;
+          this.isAuthorizated = true;
+      });
   }
 }
