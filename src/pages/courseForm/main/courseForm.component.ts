@@ -14,20 +14,13 @@ export class CourseFormComponent {
     description: string;
     constructor(private courseService: CourseService) {}
 
-    onSubmit() {
-        this.courseService.createCourse(this.title, this.description, this.duration)
+    onSubmit(data) {
+        this.courseService.createCourse(data.title, data.description, data.duration, data.date)
             .subscribe(
                 () => {
-                    this.resetForm();
                     console.log('lesson saved successfully');
                 },
                 console.error
             );
-    }
-
-    resetForm() {
-        this.title = '';
-        this.duration = 0;
-        this.description = '';
     }
 }

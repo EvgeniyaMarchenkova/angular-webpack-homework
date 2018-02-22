@@ -9,7 +9,7 @@
         <button class="btn btn-lg btn-primary"
                 (click)="openForm()">Add course</button>
         <div *ngIf="!noCourses;else noCourseMessage">
-          <item *ngFor="let course of (filteredCourses$)"
+          <item *ngFor="let course of (displayedCourses$)"
                 [data]="course"
                 (idCourse)="deleteCourse($event)">
           </item>
@@ -22,8 +22,6 @@
       </div>
       <div *ngSwitchCase="'course-form'">
         <course-form></course-form>
-        <button class="btn btn-primary"
-                (click)="cancelCreating()">Cancel</button>
       </div>
       <div *ngSwitchCase="'login-form'">
         <!--<login-page></login-page>-->

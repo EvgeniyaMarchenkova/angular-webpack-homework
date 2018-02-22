@@ -1,46 +1,40 @@
 <div class="container">
     <h1>Course form</h1>
-    <form  #courseForm="ngForm" (ngSubmit)="onSubmit()">
+    {{courseForm.valid | json}}
+    <form  #courseForm="ngForm" (ngSubmit)="courseForm.valid && onSubmit(courseForm.value);courseForm.reset()">
         <div class="form-group">
-            <label for="title">Title</label>
+            <label>Title</label>
             <input type="text"
                    class="form-control"
-                   id="title"
-                   [(ngModel)]="title"
+                   ngModel
                    name="title"
+                   #title="ngModel"
                    required
                    maxlength="50">
+            <div class="error-message"
+                 *ngIf="title.errors && (title.dirty || title.touched || courseForm.submitted)">
+                <p *ngIf="title.errors.required">
+                    The title is required
+                </p>
+            </div>
         </div>
-
+        <date-input [courseForm]="courseForm"></date-input>
+        <duration-input [courseForm]="courseForm"></duration-input>
         <div class="form-group">
-            <label for="duration">Duration</label>
+            <label>Description</label>
             <input type="text"
                    class="form-control"
-                   [(ngModel)]="duration"
-                   name="duration"
-                   id="duration">
-        </div>
-
-        <date-input></date-input>
-        <!--<div class="form-group">-->
-            <!--<label for="duration">Date</label>-->
-            <!--<input type="date"-->
-                   <!--class="form-control"-->
-                   <!--[(ngModel)]="duration"-->
-                   <!--name="duration"-->
-                   <!--id="date"-->
-                   <!--required>-->
-        <!--</div>-->
-
-        <div class="form-group">
-            <label for="description">Description</label>
-            <input type="text"
-                   class="form-control"
-                   id="description"
-                   [(ngModel)]="description"
+                   ngModel
                    name="description"
                    required
+                   #description="ngModel"
                    maxlength="500">
+            <div class="error-message"
+                 *ngIf="description.errors && (description.dirty || description.touched || courseForm.submitted)">
+                <p *ngIf="description.errors.required">
+                    The description is required
+                </p>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-success">Submit</button>

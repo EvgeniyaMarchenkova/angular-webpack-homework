@@ -1,0 +1,18 @@
+<div class="form-group">
+    <label>Duration</label>
+    <input type="text"
+           class="form-control"
+           ngModel
+           required
+           #duration="ngModel"
+           durationvalidator>
+    <div class="error-message"
+         *ngIf="duration.errors && (duration.dirty || duration.touched || courseForm.submitted)">
+        <p *ngIf="duration.errors.required">
+            The title is required
+        </p>
+        <p *ngIf="duration.errors.durationvalidator">
+            Only numbers allowed.
+        </p>
+    </div>
+</div>

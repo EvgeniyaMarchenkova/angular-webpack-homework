@@ -60,7 +60,7 @@ export class CourseService {
       return this.http.get(`http://localhost:3000/courses`, httpOptions);
   }
 
-  createCourse(title, description, duration) {
+  createCourse(title, description, duration, date) {
     const  httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'

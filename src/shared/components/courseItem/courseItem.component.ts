@@ -22,6 +22,7 @@ export class CourseItemComponent implements OnInit {
 
     ngOnInit() {
         this.isUpdating = false;
+        console.log(this.data.name);
     }
 
     writeId(id) {

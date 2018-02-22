@@ -17,7 +17,7 @@ import 'rxjs/add/operator/filter';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
   allCourses$: any;
-  filteredCourses$: any;
+  displayedCourses$: any;
   isUpdating: boolean;
   countCourses: number;
   searchString: string;
@@ -50,7 +50,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           .subscribe(
               (res) => {
                   this.allCourses$ = res.courses;
-                  this.filteredCourses$ = res.courses;
+                  this.displayedCourses$ = res.courses;
                   this.totalResults = res.total;
               },
               (err) => {
@@ -83,7 +83,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
         this.getCourses(1);
     } else {
         this.courseService.findCourse(str).subscribe( (res) => {
-                this.filteredCourses$ = res;
+                this.displayedCourses$ = res;
             }
         );
         this.isSearchResults = true;
@@ -104,6 +104,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   cancelCreating() {
-      this.content = 'main';
+      this.content = 'course-form';
   }
 }

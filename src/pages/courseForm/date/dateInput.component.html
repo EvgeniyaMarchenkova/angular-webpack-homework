@@ -1,10 +1,19 @@
 <div class="form-group">
-    <label for="date">Date</label>
-    <input type="date"
+    <label>Date</label>
+    <input type="text"
            class="form-control"
-           [(ngModel)]="date"
-           name="duration"
-           id="date"
+           ngModel
+           name="date"
            required
+           #date="ngModel"
            datevalidator>
+    <div class="error-message"
+         *ngIf="date.errors && (date.dirty || date.touched || courseForm.submitted)">
+        <p *ngIf="date.errors.required">
+            The title is required
+        </p>
+        <p *ngIf="date.errors.datevalidator">
+            The date must be in format dd/mm/yyyy.
+        </p>
+    </div>
 </div>
