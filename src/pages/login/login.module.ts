@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 
 import { AuthorizationService } from '../../core/services/authorization.service';
 import { LoginComponent } from './login.component';
-import { SharedModule } from "../../shared/shared.module";
+import { SharedModule } from '../../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { SharedModule } from "../../shared/shared.module";
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   providers: [AuthorizationService],
   exports: [

@@ -1,17 +1,13 @@
 <div class="header">
       <div>Logo</div>
-      <a href="#"
-         (click)="login()"
-         *ngIf="!(isAuthorizated)"
-      >Login</a>
+      <a routerLink="/login" (click)="login()"
+         *ngIf="!(isAuthorizated)">Login</a>
       <div *ngIf="isAuthorizated"
               class="login">
         <div>{{userName}}</div>
         <!--<div>{{userName.name.last | async}}</div>-->
         <div>
-          <a href="#"
-            (click)="logout()"
-            >Logout</a>
+          <a (click)="logout()">Logout</a>
         </div>
       </div>
 </div>

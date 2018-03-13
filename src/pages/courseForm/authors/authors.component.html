@@ -1,0 +1,17 @@
+<div class="row">
+    <h4>Authors</h4>
+    <ul class="authors-list">
+        <li *ngFor="let author of allAuthors">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           [value] ="author.value"
+                           [checked] = "author.isChecked"
+                           [(ngModel)] = "author.isChecked"
+                           [ngModelOptions]="{standalone: true}" />
+                    {{author.firstName}}{{author.lastName}}
+                </label>
+            </div>
+        </li>
+    </ul>
+</div>

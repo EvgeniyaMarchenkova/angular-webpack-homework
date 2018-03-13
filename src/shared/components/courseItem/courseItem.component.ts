@@ -15,6 +15,7 @@ import { CourseService } from '../../../core/services/course.service';
 export class CourseItemComponent implements OnInit {
   @Input() data: Course;
   @Output() idCourse: EventEmitter<number> = new EventEmitter();
+  @Output() dataEditingCourse: EventEmitter<number> = new EventEmitter();
   isUpdating: boolean;
 
   constructor(public changeBorderDirective: ChangeBorderDirective,
@@ -22,17 +23,18 @@ export class CourseItemComponent implements OnInit {
 
     ngOnInit() {
         this.isUpdating = false;
-        console.log(this.data.name);
     }
 
     writeId(id) {
       this.idCourse.emit(id);
     }
 
-    updateCourse() {
-        this.courseService.getCourse(this.data.id).subscribe((res) => {
-          this.data = res;
-          this.isUpdating = true;
-        });
+    updateCourse(data) {
+        this.isUpdating =  true;
+        this.dataEditingCourse.emit(data);
+        // this.courseService.getCourse(this.data.id).subscribe((res) => {
+        //   this.data = res;
+        //   this.isUpdating = true;
+        // });
     }
 }

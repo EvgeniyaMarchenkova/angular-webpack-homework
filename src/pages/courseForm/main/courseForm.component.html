@@ -1,7 +1,10 @@
-<div class="container">
+<div  class="container">
     <h1>Course form</h1>
-    {{courseForm.valid | json}}
-    <form  #courseForm="ngForm" (ngSubmit)="courseForm.valid && onSubmit(courseForm.value);courseForm.reset()">
+    <div class="alert alert-danger" *ngIf="error">Something went wrong. Please try later</div>
+    <div class="alert alert-success" *ngIf="success">Your course saved. Please edd new course or
+        <a routerLink="/courses" >go home</a>.
+    </div>
+    <form  #courseForm="ngForm" (ngSubmit)="courseForm.valid && onSubmit(courseForm.value)">
         <div class="form-group">
             <label>Title</label>
             <input type="text"
@@ -36,8 +39,10 @@
                 </p>
             </div>
         </div>
+        <authors [allAuthors]="allAuthors" [(selectedAuthors)]="selectedAuthors"></authors>
 
-        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a routerLink="/courses" class="btn btn-primary">Close</a>
 
     </form>
 </div>

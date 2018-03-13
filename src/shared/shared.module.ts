@@ -12,6 +12,8 @@ import { CourseItemComponent } from './components/courseItem/courseItem.componen
 import { FormatDurationPipe } from './pipes/formatDuration.pipe';
 import { OrderByDatePipe } from './pipes/orderByDate.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import {CourseFormModule} from '../pages/courseForm/courseForm.module';
+import {CourseFormComponent} from '../pages/courseForm/main/courseForm.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,12 @@ import { SearchPipe } from './pipes/search.pipe';
     ChangeBorderDirective,
     FormatDurationPipe,
     OrderByDatePipe,
-    SearchPipe
+    SearchPipe,
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    CourseFormModule
   ],
   providers: [
     CourseService,
@@ -38,7 +41,8 @@ import { SearchPipe } from './pipes/search.pipe';
     HeaderComponent,
     ToolboxComponent,
     CourseItemComponent,
-    OrderByDatePipe
+    OrderByDatePipe,
+    CourseFormComponent
   ]
 })
 export class SharedModule {}

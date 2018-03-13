@@ -1,42 +1,43 @@
-<div class="container">
-    <education-header></education-header>
-  <div class="row">
-    <toolbox (searchString)="find($event)"></toolbox>
-  </div>
-  <div class="row">
-    <div [ngSwitch]="content">
-      <div *ngSwitchCase="'main'">
-        <button class="btn btn-lg btn-primary"
-                (click)="openForm()">Add course</button>
-        <div *ngIf="!noCourses;else noCourseMessage">
-          <item *ngFor="let course of (displayedCourses$)"
-                [data]="course"
-                (idCourse)="deleteCourse($event)">
-          </item>
-          <ngb-pagination *ngIf="!isSearchResults"
-                          [collectionSize]="totalResults"
-                          [(page)]="currentPage"
-                          aria-label="Default pagination"
-                          (pageChange)="loadPage($event)"></ngb-pagination>
-        </div>
+<!--<div class="container">-->
+    <!--<education-header></education-header>-->
+  <!--<div class="row">-->
+    <!--<div [ngSwitch]="content">-->
+      <!--<div *ngSwitchCase="'main'">-->
+        <!--<button class="btn btn-lg btn-primary"-->
+                <!--(click)="openForm()">Add course</button>-->
+      <div class="row">
+        <toolbox (searchString)="find($event)"></toolbox>
       </div>
-      <div *ngSwitchCase="'course-form'">
-        <course-form></course-form>
+      <div *ngIf="!noCourses;else noCourseMessage">
+        <item *ngFor="let course of (displayedCourses$)"
+              [data]="course"
+              (idCourse)="deleteCourse($event)"
+              (dataEditingCourse)="updateCourse($event)">
+        </item>
+        <ngb-pagination *ngIf="!isSearchResults"
+                        [collectionSize]="totalResults"
+                        [(page)]="currentPage"
+                        aria-label="Default pagination"
+                        (pageChange)="loadPage($event)"></ngb-pagination>
       </div>
-      <div *ngSwitchCase="'login-form'">
-        <!--<login-page></login-page>-->
-      </div>
-    </div>
-  </div>
-  <footer class="footer">
-    <education-footer></education-footer>
-  </footer>
-</div>
-<ng-template #noCourseMessage>
-  <div class="no-courses-message">
-    No data. Feel free to add new courses.
-  </div>
-</ng-template>
+      <!--</div>-->
+      <!--<div *ngSwitchCase="'course-form'">-->
+        <!--<course-form [course]="dataEditingCourse"></course-form>-->
+      <!--</div>-->
+      <!--<div *ngSwitchCase="'login-form'">-->
+        <!--&lt;!&ndash;<login-page></login-page>&ndash;&gt;-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<footer class="footer">-->
+    <!--<education-footer></education-footer>-->
+  <!--</footer>-->
+<!--</div>-->
+<!--<ng-template #noCourseMessage>-->
+  <!--<div class="no-courses-message">-->
+    <!--No data. Feel free to add new courses.-->
+  <!--</div>-->
+<!--</ng-template>-->
 
 
 

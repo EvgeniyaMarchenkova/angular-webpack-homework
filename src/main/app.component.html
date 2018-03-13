@@ -1,3 +1,18 @@
-<app-courses-list></app-courses-list>
+<!--<app-courses-list></app-courses-list>-->
+<div class="container">
+    <education-header></education-header>
+    <a routerLink="/addCourse" class="btn btn-lg btn-primary">Add course</a>
+    <div class="row">
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <footer class="footer">
+        <education-footer></education-footer>
+    </footer>
+</div>
+
+
+
 
 

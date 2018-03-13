@@ -7,8 +7,7 @@ import { CourseService } from '../../core/services/course.service';
 import { AuthorizationService } from '../../core/services/authorization.service';
 import { CoursesComponent } from './courses.component';
 import { SharedModule } from '../../shared/shared.module';
-import {CourseFormModule} from '../courseForm/courseForm.module';
-import {CourseFormComponent} from '../courseForm/main/courseForm.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import {CourseFormComponent} from '../courseForm/main/courseForm.component';
     CommonModule,
     FormsModule,
     SharedModule,
-    CourseFormModule
+    RouterModule
   ],
   providers: [CourseService, AuthorizationService],
   exports: [

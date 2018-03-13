@@ -8,5 +8,14 @@ import { AuthorizationService } from '../../core/services/authorization.service'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  username = '';
+  password = '';
+
   constructor(private authorizationService: AuthorizationService) {}
+
+    onSubmit() {
+      this.authorizationService.login(this.username, this.password);
+    }
+
+
 }

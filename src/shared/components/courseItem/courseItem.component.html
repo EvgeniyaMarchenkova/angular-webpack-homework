@@ -15,10 +15,10 @@
     </div>
   </div>
   <div class="col">
-    <!--<button (click)="updateCourse(data.id)"-->
-            <!--class="btn btn-primary">Edit course</button>-->
+    <button *ngIf="!isUpdating"
+            (click)="updateCourse(data)"
+            class="btn btn-primary">Edit course</button>
     <button (click)="writeId(data.id)"
             class="btn btn-primary" >Delete course</button>
   </div>
 </div>
-

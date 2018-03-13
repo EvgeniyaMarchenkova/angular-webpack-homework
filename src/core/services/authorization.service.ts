@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import * as localforage from 'localforage';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpXhrBackend} from '@angular/common/http';
 import 'rxjs/add/operator/do';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthorizationService extends HttpClient {
-  isLoginSubject: Subject<string>;
+  isLoginSubject = new BehaviorSubject<any>({
+      first: '',
+      last: ''
+  });
   userData: any;
   token: any;
 
@@ -27,10 +29,10 @@ export class AuthorizationService extends HttpClient {
           login: username,
           password: password
       }
-      return this.http.post(`http://localhost:3004/auth/login`, body, httpOptions).subscribe((token: any) => {
+      return this.http.post(`http://localhost:3004/auth/login`, body, httpOptions).toPromise().then((token: any) => {
           this.token = token;
           localStorage.setItem('token', JSON.stringify(token.token));
-          this.getUserInfo();
+          this.setUserInfo().subscribe();
       }, (err) => {
           console.log(err);
       });
@@ -49,12 +51,18 @@ export class AuthorizationService extends HttpClient {
     return localStorage.getItem('token');
   }
 
-  getUserInfo() {
+  setUserInfo(): Observable<any> {
     const  httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'
         })
     };
-    return this.http.post(`http://localhost:3004/auth/userinfo`, null, httpOptions);
+    return this.http.post(`http://localhost:3004/auth/userinfo`, null, httpOptions).map((res: any) => {
+        this.isLoginSubject.next(res.name);
+    });
+  }
+
+  getUserInfo() {
+      return this.isLoginSubject.asObservable();
   }
 }

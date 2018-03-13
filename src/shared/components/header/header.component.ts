@@ -3,29 +3,28 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import { AuthorizationService } from '../../../core/services/authorization.service';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'education-header',
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy{
+export class HeaderComponent implements OnInit, OnDestroy {
   isAuthorizated = false;
-  userName: any;
-  token: string;
+  userName: string;
   userNameSubscription: Subscription;
 
-  constructor(public authorizationService: AuthorizationService) {}
+  constructor(public authorizationService: AuthorizationService,
+              public router: Router) {}
 
   ngOnInit() {
     this.isAuthorizated = this.authorizationService.isAuthorizated();
     this.getName();
   }
 
-  login()  {
-    this.authorizationService.login('Dale', 'consequat');
-    this.isAuthorizated = true;
-    this.getName();
+  login() {
+      this.router.navigate(['/login']);
   }
 
   logout() {
@@ -34,10 +33,12 @@ export class HeaderComponent implements OnInit, OnDestroy{
   }
 
   getName() {
-      // this.userName = this.authorizationService.getUserInfo();
       this.userNameSubscription = this.authorizationService.getUserInfo().subscribe((res: any) => {
-          this.userName = res.name.first + ' ' + res.name.last;
-          this.isAuthorizated = true;
+          if (res.first) {
+              this.userName =  res.first + ' ' + res.last;
+              this.isAuthorizated = true;
+              this.router.navigate(['/courses']);
+          }
       });
   }
 
