@@ -11,29 +11,31 @@ import {Course} from '../../shared/interfaces/course';
 
 @Injectable()
 export class CourseItemService {
-    courseItem = new BehaviorSubject<Course>({
+    courseItemSubject = new BehaviorSubject<any>({
         id: null,
         name: '',
         date: null,
-        duration: 0,
+        length: 0,
         topRated: false,
         description: '',
-        startDate: ''
+        dateStr: '',
+        authors: []
     });
 
     getCourseValue() {
-        return this.courseItem.asObservable();
+        return this.courseItemSubject.asObservable();
     }
 
     setCourseValue(data) {
-        this.courseItem.next({
+        this.courseItemSubject.next({
             id: data.id,
             name: data.name,
             date: data.date,
-            duration: data.duration,
+            length: data.length,
             topRated: false,
             description: data.description,
-            startDate: null
+            dateStr: data.date.format('L'),
+            authors: data.authors
         });
     }
 

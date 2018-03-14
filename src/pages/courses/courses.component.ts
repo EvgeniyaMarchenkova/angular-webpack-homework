@@ -90,20 +90,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadPage(page) {
-    this.currentPage = page;
-    this.getCourses(page);
-  }
-
-  openForm() {
-      this.content = 'course-form';
-  }
 
   ngOnDestroy() {
     this.allCourseseSubscription.unsubscribe();
   }
 
-  cancelCreating() {
-      this.content = 'course-form';
-  }
 }

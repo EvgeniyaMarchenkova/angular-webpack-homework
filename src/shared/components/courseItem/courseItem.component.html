@@ -6,7 +6,7 @@
       <div>{{data.description}}</div>
       <div>
         <span class="bolder">Duration:</span>
-        {{data.duration | formatDuration}}
+        {{data.length | formatDuration}}
       </div>
       <div>
         <span class="bolder">Created:</span>
@@ -18,7 +18,7 @@
     <button *ngIf="!isUpdating"
             (click)="updateCourse(data)"
             class="btn btn-primary">Edit course</button>
-    <button (click)="writeId(data.id)"
+    <button (click)="delete(data.id)"
             class="btn btn-primary" >Delete course</button>
   </div>
 </div>

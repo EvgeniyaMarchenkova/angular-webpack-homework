@@ -1,71 +1,9 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { Course } from '../../../shared/interfaces/course';
 import { CourseService } from '../../../core/services/course.service';
 import {CourseItemService} from '../../../core/services/courseItem.service';
 import {Router} from '@angular/router';
-
-const allAuthors = [
-    {
-        id: 5508,
-        firstName: "Patsy",
-        lastName: "Bright"
-    },
-    {
-        id: 8413,
-        firstName: "Greta",
-        lastName: "Richardson"
-    },
-    {
-        id: 7458,
-        firstName: "Deana",
-        lastName: "Bruce"
-    },
-    {
-        id: 3618,
-        firstName: "Laura",
-        lastName: "Kirby"
-    },
-    {
-        id: 9064,
-        firstName: "Quinn",
-        lastName: "Cain"
-    },
-    {
-        id: 9926,
-        firstName: "Burt",
-        lastName: "Holland"
-    },
-    {
-        id: 6440,
-        firstName: "Andrews",
-        lastName: "Byers"
-    },
-    {
-        id: 8509,
-        firstName: "Shawn",
-        lastName: "Craig"
-    },
-    {
-        id: 21,
-        firstName: "Maddox",
-        lastName: "Diaz"
-    },
-    {
-        id: 800,
-        firstName: "Glenda",
-        lastName: "Juarez"
-    },
-    {
-        id: 1772,
-        firstName: "Hilda",
-        lastName: "Gaines"
-    },
-    {
-        id: 3003,
-        firstName: "Abbott",
-        lastName: "Mckay"
-    }
-]
+import * as moment from 'moment';
 
 @Component({
     selector: 'course-form',
@@ -74,11 +12,22 @@ const allAuthors = [
 })
 export class CourseFormComponent implements OnInit, AfterViewInit {
     @ViewChild('courseForm', {read: ElementRef}) courseForm: ElementRef;
-    @Input() course: Course;
+    @ViewChild('durationInput') durationInput: any;
+    @ViewChild('dateInput') dateInput: any;
+    @ViewChild('authors') authors: any;
 
-    allAuthors = allAuthors;
-    duration: number;
-    description: string;
+    course = {
+        id: null,
+        name: '',
+        date: null,
+        length: null,
+        topRated: null,
+        description: '',
+        startDate: '',
+        authors: []
+    };
+    dateStr = '';
+
     error = false;
     success = false;
 
@@ -87,22 +36,31 @@ export class CourseFormComponent implements OnInit, AfterViewInit {
                 private router: Router) {}
 
     ngOnInit() {
-        console.log(this.course);
+        this.courseItemService.getCourseValue().subscribe((res) => {
+            this.course = res;
+            // if (this.course.date) {
+            //     this.dateStr = this.course.date.format('L');
+            // }
+        });
     }
 
     ngAfterViewInit() {
-        if (this.course) {
-            this.courseItemService.getCourseValue().subscribe((res) => {
-                this.courseForm.nativeElement.title.value = res.name;
-            });
-        }
+        // if (this.course.id) {
+        //     this.courseForm.nativeElement.value = this.course;
+        // }
+
     }
 
     onSubmit(data) {
-        if (this.courseForm.nativeElement.valid) {
-            console.log("Form Submitted!");
+        if (!this.course.id) {
+            this.course.id = moment();
         }
-        this.courseService.createCourse(data.title, data.description, data.duration, data.date)
+        this.course.name = data.title;
+        this.course.description = data.description;
+        this.course.length = this.durationInput.length;
+        this.course.date = this.dateInput.dateStr;
+        this.course.authors = this.authors.selectedAuthors;
+        this.courseService.createCourse(this.course)
             .subscribe(
                 () => {
                     this.success = true;
@@ -112,7 +70,23 @@ export class CourseFormComponent implements OnInit, AfterViewInit {
                 (err) => {
                     this.error = true;
                     console.log(err);
+                    window.scrollTo(0, 0);
                 }
             );
+    }
+
+    closeForm() {
+        this.courseForm.nativeElement.reset();
+        this.router.navigate(['/courses']);
+        this.courseItemService.setCourseValue({
+            id: null,
+            name: '',
+            date: null,
+            length: 0,
+            topRated: false,
+            description: '',
+            dateStr: '',
+            authors: []
+        });
     }
 }

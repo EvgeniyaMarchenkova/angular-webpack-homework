@@ -23,7 +23,8 @@ import {PageNotFoundComponent} from '../pages/pageNotFound/pageNotFound.componen
 const appRoutes: Routes = [
     { path: '',   redirectTo: '/courses', pathMatch: 'full' },
     { path: 'courses', component: CoursesComponent },
-    { path: 'addCourse', component: CourseFormComponent },
+    { path: 'courses/new', component: CourseFormComponent },
+    { path: 'courses/:id', component: CourseFormComponent },
     { path: 'login', component: LoginComponent },
     { path: '**', component: PageNotFoundComponent }
 ];

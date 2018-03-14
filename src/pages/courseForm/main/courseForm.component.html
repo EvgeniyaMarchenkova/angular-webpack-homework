@@ -1,10 +1,10 @@
 <div  class="container">
-    <h1>Course form</h1>
     <div class="alert alert-danger" *ngIf="error">Something went wrong. Please try later</div>
     <div class="alert alert-success" *ngIf="success">Your course saved. Please edd new course or
         <a routerLink="/courses" >go home</a>.
     </div>
-    <form  #courseForm="ngForm" (ngSubmit)="courseForm.valid && onSubmit(courseForm.value)">
+    <h1>Course form</h1>
+    <form  #courseForm="ngForm" (ngSubmit)="courseForm.valid && onSubmit(courseForm.value, length)">
         <div class="form-group">
             <label>Title</label>
             <input type="text"
@@ -13,6 +13,7 @@
                    name="title"
                    #title="ngModel"
                    required
+                   [ngModel]="course.name"
                    maxlength="50">
             <div class="error-message"
                  *ngIf="title.errors && (title.dirty || title.touched || courseForm.submitted)">
@@ -21,13 +22,14 @@
                 </p>
             </div>
         </div>
-        <date-input [courseForm]="courseForm"></date-input>
-        <duration-input [courseForm]="courseForm"></duration-input>
+        <date-input #dateInput [courseForm]="courseForm" [dateStr]="course.dateStr"></date-input>
+        <duration-input  #durationInput [length]="course.length" [courseForm]="courseForm" ></duration-input>
         <div class="form-group">
             <label>Description</label>
             <input type="text"
                    class="form-control"
                    ngModel
+                   [ngModel]="course.description"
                    name="description"
                    required
                    #description="ngModel"
@@ -39,10 +41,10 @@
                 </p>
             </div>
         </div>
-        <authors [allAuthors]="allAuthors" [(selectedAuthors)]="selectedAuthors"></authors>
+        <authors #authors [authors]="course.authors"></authors>
 
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a routerLink="/courses" class="btn btn-primary">Close</a>
+        <button (click)="closeForm()" class="btn btn-primary">Close</button>>
 
     </form>
 </div>

@@ -1,17 +1,18 @@
-<form (ngSubmit)="onSubmit()">
+<form #loginForm (ngSubmit)="onSubmit()">
   <div class="form-group login-form">
     <label for="loginInput">Login</label>
     <input  class="form-control"
             [ngModelOptions]="{standalone: true}"
             [(ngModel)]="username"
-            id="loginInput">{{username}}
+            id="loginInput"
+            required>
     <label for="passwordInput">Password</label>
     <input class="form-control"
            [(ngModel)]="password"
            [ngModelOptions]="{standalone: true}"
            id="passwordInput">
     <div>
-      <button type="submit" class="btn btn-primary">Enter</button>
+      <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Enter</button>
       <a routerLink="/courses" class="btn btn-primary">Close</a>
     </div>
   </div>

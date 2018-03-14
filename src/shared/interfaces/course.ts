@@ -4,8 +4,9 @@ export  interface Course {
   id: any;
   name: string;
   date: moment.Moment;
-  duration: number;
+  length: number;
   topRated: boolean;
   description: string;
-  startDate: string;
+  dateStr: string;
+  authors: any[];
 }

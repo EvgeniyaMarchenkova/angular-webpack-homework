@@ -7,6 +7,7 @@
                 <!--(click)="openForm()">Add course</button>-->
       <div class="row">
         <toolbox (searchString)="find($event)"></toolbox>
+        <a class="col-sm" routerLink="/courses/new" class="btn btn-lg btn-primary">Add course</a>
       </div>
       <div *ngIf="!noCourses;else noCourseMessage">
         <item *ngFor="let course of (displayedCourses$)"

@@ -60,18 +60,21 @@ export class CourseService {
       return this.http.get(`http://localhost:3000/courses`, httpOptions);
   }
 
-  createCourse(title, description, duration, date) {
+  createCourse(data) {
     const  httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
       })
     };
-    const newCourse = {id: moment() + title,
-                      title: title,
-                      duration: duration,
-                      topRated: false,
-                      description: description,
-                      date: moment().toString()};
+    const newCourse = {
+      id: moment(),
+      title: data.title,
+      length: data.length,
+      topRated: !!data.topRated,
+      description: data.description,
+      date: data.dateStr,
+      authors: data.authors
+    }
     return this.http.post(`http://localhost:3000/courses`, JSON.stringify(newCourse), httpOptions);
   }
 
