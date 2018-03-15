@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewCh
 import { Course } from '../../../shared/interfaces/course';
 import { CourseService } from '../../../core/services/course.service';
 import {CourseItemService} from '../../../core/services/courseItem.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -33,11 +33,14 @@ export class CourseFormComponent implements OnInit, AfterViewInit {
 
     constructor(public courseService: CourseService,
                 public courseItemService: CourseItemService,
-                private router: Router) {}
+                private router: Router,
+                public activatedRoute: ActivatedRoute) {
+    }
 
     ngOnInit() {
         this.courseItemService.getCourseValue().subscribe((res) => {
             this.course = res;
+            this.activatedRoute.snapshot.data[0]['titleCourse'] = res.id;
             // if (this.course.date) {
             //     this.dateStr = this.course.date.format('L');
             // }

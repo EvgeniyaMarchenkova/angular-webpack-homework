@@ -34,6 +34,6 @@ export class CourseItemComponent implements OnInit {
     updateCourse(data) {
         this.isUpdating =  true;
         this.courseItemService.setCourseValue(this.data);
-        this.router.navigate(['/courses/', data.id]);
+        this.router.navigate(['/courses', data.id]);
     }
 }

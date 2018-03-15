@@ -56,9 +56,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
               (err) => {
                   this.countCourses = 0;
                   console.log('Error: ' + err);
-              }, () => {
-                  console.log('Completed');
-          });
+              });
   }
 
   deleteCourse(id) {

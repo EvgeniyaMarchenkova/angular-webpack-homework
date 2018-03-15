@@ -21,12 +21,46 @@ import {LoginComponent} from '../pages/login/login.component';
 import {PageNotFoundComponent} from '../pages/pageNotFound/pageNotFound.component';
 
 const appRoutes: Routes = [
-    { path: '',   redirectTo: '/courses', pathMatch: 'full' },
-    { path: 'courses', component: CoursesComponent },
-    { path: 'courses/new', component: CourseFormComponent },
-    { path: 'courses/:id', component: CourseFormComponent },
-    { path: 'login', component: LoginComponent },
-    { path: '**', component: PageNotFoundComponent }
+    {
+        path: '',
+        redirectTo: '/courses',
+        pathMatch: 'full'
+    },
+    {
+        path: 'courses',
+        component: CoursesComponent,
+        data: {
+          breadcrumb: 'Courses'
+        }
+    },
+    {
+        path: 'courses/new',
+        component: CourseFormComponent,
+        data: {
+            breadcrumb: 'Add course'
+        }
+    },
+    {
+        path: 'courses/:id',
+        component: CourseFormComponent,
+        data: {
+            breadcrumb: `modify`
+        }
+    },
+    {
+        path: 'login',
+        component: LoginComponent,
+        data: {
+            breadcrumb: 'Login'
+        }
+    },
+    {
+        path: '**',
+        component: PageNotFoundComponent,
+        data: {
+            breadcrumb: 'Page not found'
+        },
+    }
 ];
 
 @NgModule({
@@ -45,8 +79,7 @@ const appRoutes: Routes = [
     ModalModule.forRoot(),
     NgbModule.forRoot(),
     RouterModule.forRoot(
-        appRoutes,
-        { enableTracing: true } // <-- debugging purposes only
+        appRoutes
     ),
     BootstrapModalModule
   ],

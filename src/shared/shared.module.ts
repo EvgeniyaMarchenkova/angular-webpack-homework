@@ -14,6 +14,9 @@ import { OrderByDatePipe } from './pipes/orderByDate.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import {CourseFormModule} from '../pages/courseForm/courseForm.module';
 import {CourseFormComponent} from '../pages/courseForm/main/courseForm.component';
+import {BreadCrumb} from './interfaces/breadcrumb';
+import {BreadcrumbComponent} from './components/breadcrumb/breadcrumb.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import {CourseFormComponent} from '../pages/courseForm/main/courseForm.component
     HeaderComponent,
     ToolboxComponent,
     CourseItemComponent,
+    BreadcrumbComponent,
     ChangeBorderDirective,
     FormatDurationPipe,
     OrderByDatePipe,
@@ -29,7 +33,8 @@ import {CourseFormComponent} from '../pages/courseForm/main/courseForm.component
   imports: [
     CommonModule,
     FormsModule,
-    CourseFormModule
+    CourseFormModule,
+    RouterModule
   ],
   providers: [
     CourseService,
@@ -42,7 +47,8 @@ import {CourseFormComponent} from '../pages/courseForm/main/courseForm.component
     ToolboxComponent,
     CourseItemComponent,
     OrderByDatePipe,
-    CourseFormComponent
+    CourseFormComponent,
+    BreadcrumbComponent
   ]
 })
 export class SharedModule {}
