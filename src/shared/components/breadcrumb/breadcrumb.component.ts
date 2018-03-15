@@ -21,6 +21,7 @@ export class BreadcrumbComponent {
 
     buildBreadCrumb(route: ActivatedRoute, url: string = '',
                     breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
+        let newBreadcrumbs;
         const label = route.routeConfig ? route.routeConfig.data[ 'breadcrumb' ] : 'Home';
         const path = route.routeConfig ? route.routeConfig.path : '';
         const nextUrl = `${url}${path}/`;
@@ -28,7 +29,12 @@ export class BreadcrumbComponent {
             label: label,
             url: nextUrl
         };
-        const newBreadcrumbs = [ ...breadcrumbs, breadcrumb ];
+        if (breadcrumb.label !== 'Courses') {
+            newBreadcrumbs = [ ...breadcrumbs, breadcrumb ];
+        } else {
+            newBreadcrumbs = [ ...breadcrumbs];
+        }
+
         if (route.firstChild) {
             return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
         }
