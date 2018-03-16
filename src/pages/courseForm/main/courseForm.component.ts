@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { Course } from '../../../shared/interfaces/course';
 import { CourseService } from '../../../core/services/course.service';
-import {CourseItemService} from '../../../core/services/courseItem.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 
@@ -23,7 +22,7 @@ export class CourseFormComponent implements OnInit, AfterViewInit {
         length: null,
         topRated: null,
         description: '',
-        startDate: '',
+        dateStr: '',
         authors: []
     };
     dateStr = '';
@@ -32,19 +31,14 @@ export class CourseFormComponent implements OnInit, AfterViewInit {
     success = false;
 
     constructor(public courseService: CourseService,
-                public courseItemService: CourseItemService,
                 private router: Router,
                 public activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.courseItemService.getCourseValue().subscribe((res) => {
-            this.course = res;
-            this.activatedRoute.snapshot.data[0]['titleCourse'] = res.id;
-            // if (this.course.date) {
-            //     this.dateStr = this.course.date.format('L');
-            // }
-        });
+        if (this.activatedRoute.snapshot.data['course']) {
+            this.course = this.activatedRoute.snapshot.data['course'];
+        }
     }
 
     ngAfterViewInit() {
@@ -81,15 +75,5 @@ export class CourseFormComponent implements OnInit, AfterViewInit {
     closeForm() {
         this.courseForm.nativeElement.reset();
         this.router.navigate(['/courses']);
-        this.courseItemService.setCourseValue({
-            id: null,
-            name: '',
-            date: null,
-            length: 0,
-            topRated: false,
-            description: '',
-            dateStr: '',
-            authors: []
-        });
     }
 }

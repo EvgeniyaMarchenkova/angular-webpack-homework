@@ -19,6 +19,8 @@ import {CoursesComponent} from '../pages/courses/courses.component';
 import {CourseFormComponent} from '../pages/courseForm/main/courseForm.component';
 import {LoginComponent} from '../pages/login/login.component';
 import {PageNotFoundComponent} from '../pages/pageNotFound/pageNotFound.component';
+import {CourseResolver} from '../shared/courseResolver';
+
 
 const appRoutes: Routes = [
     {
@@ -28,10 +30,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'courses',
-        component: CoursesComponent,
-        data: {
-          breadcrumb: 'Courses'
-        }
+        component: CoursesComponent
     },
     {
         path: 'courses/new',
@@ -43,8 +42,8 @@ const appRoutes: Routes = [
     {
         path: 'courses/:id',
         component: CourseFormComponent,
-        data: {
-            breadcrumb: `modify`
+        resolve: {
+            course: CourseResolver
         }
     },
     {
@@ -64,28 +63,32 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageNotFoundComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    SharedModule,
-    LoginModule,
-    CoursesModule,
-    CourseFormModule,
-    HttpClientModule,
-    ModalModule.forRoot(),
-    NgbModule.forRoot(),
-    RouterModule.forRoot(
-        appRoutes
-    ),
-    BootstrapModalModule
-  ],
-  providers: [ CourseService,
-               AuthorizationService,
-               httpInterceptorProviders],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        PageNotFoundComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        SharedModule,
+        LoginModule,
+        CoursesModule,
+        CourseFormModule,
+        HttpClientModule,
+        ModalModule.forRoot(),
+        NgbModule.forRoot(),
+        RouterModule.forRoot(
+            appRoutes
+        ),
+        BootstrapModalModule
+    ],
+    providers: [
+        CourseService,
+        AuthorizationService,
+        CourseResolver,
+        httpInterceptorProviders
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

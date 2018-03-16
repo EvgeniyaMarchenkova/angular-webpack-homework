@@ -3,7 +3,6 @@ import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit}
 import { Course } from '../../interfaces/course';
 import { ChangeBorderDirective } from '../../../shared/directives/changeBorderDirective';
 import { CourseService } from '../../../core/services/course.service';
-import {CourseItemService} from '../../../core/services/courseItem.service';
 import { Router } from '@angular/router';
 
 
@@ -20,7 +19,6 @@ export class CourseItemComponent implements OnInit {
   isUpdating: boolean;
 
   constructor(public changeBorderDirective: ChangeBorderDirective,
-              public courseItemService: CourseItemService,
               public router: Router) {}
 
     ngOnInit() {
@@ -33,7 +31,6 @@ export class CourseItemComponent implements OnInit {
 
     updateCourse(data) {
         this.isUpdating =  true;
-        this.courseItemService.setCourseValue(this.data);
         this.router.navigate(['/courses', data.id]);
     }
 }

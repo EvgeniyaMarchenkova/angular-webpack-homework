@@ -8,7 +8,6 @@ import {DateValidator} from '../../shared/directives/dateValidator.directive';
 import {DurationValidator} from '../../shared/directives/durationValidator.directive';
 import {DurationInputComponent} from './duration/durationInput.component';
 import {AuthorsComponent} from './authors/authors.component';
-import {CourseItemService} from '../../core/services/courseItem.service';
 import {RouterModule} from '@angular/router';
 
 @NgModule({
@@ -27,7 +26,6 @@ import {RouterModule} from '@angular/router';
     ],
     exports: [
         CourseFormComponent
-    ],
-    providers: [CourseItemService]
+    ]
 })
 export class CourseFormModule {}

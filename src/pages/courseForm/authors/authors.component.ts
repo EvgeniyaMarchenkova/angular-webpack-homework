@@ -32,6 +32,7 @@ export class AuthorsComponent implements OnInit{
                 if (selectedAuthor.id === author.id) {
                     this.listAuthorsForView[i].isChecked = true;
                 }
+
             });
         })
         console.log(this.authors);
