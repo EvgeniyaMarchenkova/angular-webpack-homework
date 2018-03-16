@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {Injectable, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule, Routes } from '@angular/router';
+import {CanActivate, Router, RouterModule, Routes} from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { CoursesModule } from '../pages/courses/courses.module';
@@ -21,6 +21,20 @@ import {LoginComponent} from '../pages/login/login.component';
 import {PageNotFoundComponent} from '../pages/pageNotFound/pageNotFound.component';
 import {CourseResolver} from '../shared/courseResolver';
 
+@Injectable()
+ class AuthGuard implements CanActivate {
+
+    constructor(public authorizationService: AuthorizationService, public router: Router) {}
+
+    canActivate(): boolean {
+        if (!this.authorizationService.isAuthorizated()) {
+            this.router.navigate(['login']);
+            return false;
+        }
+        return true;
+    }
+
+}
 
 const appRoutes: Routes = [
     {
@@ -37,11 +51,13 @@ const appRoutes: Routes = [
         component: CourseFormComponent,
         data: {
             breadcrumb: 'Add course'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'courses/:id',
         component: CourseFormComponent,
+        canActivate: [AuthGuard],
         resolve: {
             course: CourseResolver
         }
@@ -86,7 +102,8 @@ const appRoutes: Routes = [
         CourseService,
         AuthorizationService,
         CourseResolver,
-        httpInterceptorProviders
+        httpInterceptorProviders,
+        AuthGuard
     ],
     bootstrap: [AppComponent]
 })
