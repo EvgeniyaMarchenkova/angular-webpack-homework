@@ -88,6 +88,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
   }
 
+    loadPage(page) {
+        this.currentPage = page;
+        this.getCourses(page);
+    }
 
   ngOnDestroy() {
     this.allCourseseSubscription.unsubscribe();
