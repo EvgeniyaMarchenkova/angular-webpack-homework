@@ -14,18 +14,16 @@ import {Course} from '../../shared/interfaces/course';
 @Injectable()
 export class CourseService {
   allCourses: any;
-  subj: any;
-  source: any;
   totalCountCourses: number;
 
 
   constructor( public http: HttpClient) {
       this.allCourses = <BehaviorSubject<any>>new BehaviorSubject([]);
+  //
   }
 
   getAllCourses(page): any {
         return this.http.get(`http://localhost:3000/courses?_page=${page}`, { observe: 'response' }).map(res => {
-            console.log(res);
             if (!this.totalCountCourses) {
                 this.totalCountCourses = Number(res.headers.get('X-Total-Count'));
             }

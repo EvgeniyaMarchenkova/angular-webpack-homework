@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import {Author} from './author';
 
 export  interface Course {
   id: any;
@@ -8,5 +9,5 @@ export  interface Course {
   topRated: boolean;
   description: string;
   dateStr: string;
-  authors: any[];
+  authors: Author[];
 }

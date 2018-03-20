@@ -23,6 +23,7 @@ import {PageNotFoundComponent} from '../pages/pageNotFound/pageNotFound.componen
 import {CourseResolver} from '../shared/courseResolver';
 import {StoreModule} from '@ngrx/store';
 import {coursesListState, courseState,  userState} from '../shared/reducer';
+import {AuthGuard} from '../core/guard/auth.guard';
 
 
 
@@ -41,14 +42,16 @@ const appRoutes: Routes = [
         component: CourseFormComponent,
         data: {
             breadcrumb: 'Add course'
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'courses/:id',
         component: CourseFormComponent,
         resolve: {
             course: CourseResolver
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'login',
@@ -94,8 +97,8 @@ const appRoutes: Routes = [
         CourseService,
         AuthorizationService,
         CourseResolver,
-        httpInterceptorProviders
-
+        httpInterceptorProviders,
+        AuthGuard
     ],
     bootstrap: [AppComponent]
 })

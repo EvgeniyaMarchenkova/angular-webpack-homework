@@ -35,9 +35,7 @@ export class CourseFormComponent implements OnInit {
     constructor(public courseService: CourseService,
                 private router: Router,
                 public activatedRoute: ActivatedRoute,
-                private store: Store<AppState>) {
-        console.log(this.course.name);
-    }
+                private store: Store<AppState>) {}
 
 
     ngOnInit() {

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {allAuthors} from './authors';
+import {Author} from '../../../shared/interfaces/author';
 
 @Component({
     selector: 'authors',
@@ -7,7 +8,7 @@ import {allAuthors} from './authors';
     styleUrls: ['./authors.component.scss']
 })
 export class AuthorsComponent implements OnInit{
-    @Input() authors: any;
+    @Input() authors: Author[] = [];
     listAuthorsForView =  [];
 
     get selectedAuthors() {

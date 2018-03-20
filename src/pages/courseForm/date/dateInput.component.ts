@@ -9,6 +9,5 @@ export class DateInputComponent implements OnInit{
     @Input() dateStr: string;
 
     ngOnInit() {
-        console.log(this.dateStr);
     }
 }

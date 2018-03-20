@@ -12,8 +12,8 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
     isAuthorizated = false;
-    userName: any;
-    userNameSubscription: Subscription;
+    userName: string;
+    // userNameSubscription: Subscription;
 
     constructor(public authorizationService: AuthorizationService,
                 public router: Router) {
