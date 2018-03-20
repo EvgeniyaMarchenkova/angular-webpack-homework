@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {allAuthors} from './authors';
 import {Author} from '../../../shared/interfaces/author';
 
@@ -7,7 +7,7 @@ import {Author} from '../../../shared/interfaces/author';
     templateUrl: './authors.component.html',
     styleUrls: ['./authors.component.scss']
 })
-export class AuthorsComponent implements OnInit{
+export class AuthorsComponent implements OnInit, OnDestroy{
     @Input() authors: Author[] = [];
     listAuthorsForView =  [];
 
@@ -36,6 +36,10 @@ export class AuthorsComponent implements OnInit{
             });
         })
         console.log(this.authors);
+    }
+
+    ngOnDestroy() {
+        this.listAuthorsForView =  [];
     }
 
 }

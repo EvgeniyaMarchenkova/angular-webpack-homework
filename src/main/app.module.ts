@@ -35,7 +35,10 @@ const appRoutes: Routes = [
     },
     {
         path: 'courses',
-        component: CoursesComponent
+        component: CoursesComponent,
+        data: {
+            breadcrumb: 'Courses list'
+        },
     },
     {
         path: 'courses/new',
