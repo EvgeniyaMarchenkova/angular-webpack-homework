@@ -23,36 +23,18 @@ export class BreadcrumbComponent {
             });
     }
 
-
-    // buildBreadCrumb(route: ActivatedRoute, url: string = '',
-    //                 breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
-    //     let breadcrumb = {
-    //         label: '',
-    //         url: ''
-    //     };
-    //     let nextUrl;
-    //     if (route.routeConfig && route.routeConfig.data) {
-    //         breadcrumb.label = route.routeConfig.data['breadcrumb'];
-    //         const path = route.routeConfig.path;
-    //         nextUrl = `${url}${path}/`
-    //         breadcrumb.url = nextUrl;
-    //     } else {
-    //
-    //     }
-    //
-    //     const newBreadcrumbs = breadcrumb.label === 'Courses' ? [...breadcrumbs] : [...breadcrumbs, breadcrumb]
-    //
-    //
-    //     // if (route.firstChild) {
-    //         return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
-    //     // }
-    //     return newBreadcrumbs;
-    // }
     buildBreadCrumb(route: ActivatedRoute, url: string = '',
                     breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
-
-
-        let label = route.routeConfig ? route.routeConfig.data['breadcrumb'] || route.snapshot.data['breadcrumb']['name'] : 'Home';
+        let label;
+        if (route.routeConfig) {
+            if (route.routeConfig.data) {
+                label = route.routeConfig.data['breadcrumb'];
+            } else {
+                label = route.snapshot.data['course']['name'];
+            }
+        } else {
+            label = 'Home';
+        }
 
         const path = route.routeConfig ? route.routeConfig.path : '';
         const nextUrl = `${url}${path}/`;
