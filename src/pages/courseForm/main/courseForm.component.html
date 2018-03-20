@@ -4,7 +4,7 @@
         <a routerLink="/courses" >go home</a>.
     </div>
     <h1>Course form</h1>
-    <form  #courseForm="ngForm" (ngSubmit)="courseForm.valid && onSubmit(courseForm.value, length)">
+    <form  #courseForm="ngForm" (ngSubmit)="courseForm.valid && onSubmit(courseForm.value)">
         <div class="form-group">
             <label>Title</label>
             <input type="text"
@@ -13,7 +13,7 @@
                    name="title"
                    #title="ngModel"
                    required
-                   [ngModel]="course.name"
+                   [(ngModel)]="course.name"
                    maxlength="50">
             <div class="error-message"
                  *ngIf="title.errors && (title.dirty || title.touched || courseForm.submitted)">
@@ -29,7 +29,7 @@
             <input type="text"
                    class="form-control"
                    ngModel
-                   [ngModel]="course.description"
+                   [(ngModel)]="course.description"
                    name="description"
                    required
                    #description="ngModel"

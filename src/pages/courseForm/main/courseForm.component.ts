@@ -3,13 +3,15 @@ import { Course } from '../../../shared/interfaces/course';
 import { CourseService } from '../../../core/services/course.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
+import {INITIAL_STATE, Store} from '@ngrx/store';
+import {AppState} from '../../../shared/interfaces/store';
 
 @Component({
     selector: 'course-form',
     templateUrl: './courseForm.component.html',
     styleUrls: ['./courseForm.component.scss']
 })
-export class CourseFormComponent implements OnInit, AfterViewInit {
+export class CourseFormComponent implements OnInit {
     @ViewChild('courseForm', {read: ElementRef}) courseForm: ElementRef;
     @ViewChild('durationInput') durationInput: any;
     @ViewChild('dateInput') dateInput: any;
@@ -32,21 +34,22 @@ export class CourseFormComponent implements OnInit, AfterViewInit {
 
     constructor(public courseService: CourseService,
                 private router: Router,
-                public activatedRoute: ActivatedRoute) {
+                public activatedRoute: ActivatedRoute,
+                private store: Store<AppState>) {
+        console.log(this.course.name);
     }
+
 
     ngOnInit() {
-        if (this.activatedRoute.snapshot.data['course']) {
-            this.course = this.activatedRoute.snapshot.data['course'];
-        }
-    }
 
-    ngAfterViewInit() {
-        // if (this.course.id) {
-        //     this.courseForm.nativeElement.value = this.course;
+        // if (this.activatedRoute.snapshot.data['course']) {
+        //     this.course = this.activatedRoute.snapshot.data['course'];
         // }
-
+        this.store.select('courseState').subscribe((res) => {
+            this.course = res;
+        });
     }
+
 
     onSubmit(data) {
         if (!this.course.id) {
@@ -74,6 +77,7 @@ export class CourseFormComponent implements OnInit, AfterViewInit {
 
     closeForm() {
         this.courseForm.nativeElement.reset();
+        this.store.dispatch({type: 'courseState', payload: INITIAL_STATE});
         this.router.navigate(['/courses']);
     }
 }

@@ -6,6 +6,7 @@ import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {CanActivate, Router, RouterModule, Routes} from '@angular/router';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { SharedModule } from '../shared/shared.module';
 import { CoursesModule } from '../pages/courses/courses.module';
@@ -20,21 +21,10 @@ import {CourseFormComponent} from '../pages/courseForm/main/courseForm.component
 import {LoginComponent} from '../pages/login/login.component';
 import {PageNotFoundComponent} from '../pages/pageNotFound/pageNotFound.component';
 import {CourseResolver} from '../shared/courseResolver';
+import {StoreModule} from '@ngrx/store';
+import {coursesListState, courseState,  userState} from '../shared/reducer';
 
-@Injectable()
- class AuthGuard implements CanActivate {
 
-    constructor(public authorizationService: AuthorizationService, public router: Router) {}
-
-    canActivate(): boolean {
-        if (!this.authorizationService.isAuthorizated()) {
-            this.router.navigate(['login']);
-            return false;
-        }
-        return true;
-    }
-
-}
 
 const appRoutes: Routes = [
     {
@@ -51,13 +41,11 @@ const appRoutes: Routes = [
         component: CourseFormComponent,
         data: {
             breadcrumb: 'Add course'
-        },
-        canActivate: [AuthGuard]
+        }
     },
     {
         path: 'courses/:id',
         component: CourseFormComponent,
-        canActivate: [AuthGuard],
         resolve: {
             course: CourseResolver
         }
@@ -96,14 +84,18 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes
         ),
-        BootstrapModalModule
+        BootstrapModalModule,
+        StoreModule.forRoot({ userState, coursesListState, courseState} ),
+        StoreDevtoolsModule.instrument({
+            maxAge: 5
+        })
     ],
     providers: [
         CourseService,
         AuthorizationService,
         CourseResolver,
-        httpInterceptorProviders,
-        AuthGuard
+        httpInterceptorProviders
+
     ],
     bootstrap: [AppComponent]
 })

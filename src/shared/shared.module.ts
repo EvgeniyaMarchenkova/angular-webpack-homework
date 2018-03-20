@@ -27,7 +27,7 @@ import {RouterModule} from '@angular/router';
     BreadcrumbComponent,
     ChangeBorderDirective,
     FormatDurationPipe,
-    OrderByDatePipe,
+    // OrderByDatePipe,
     SearchPipe,
   ],
   imports: [
@@ -46,7 +46,7 @@ import {RouterModule} from '@angular/router';
     HeaderComponent,
     ToolboxComponent,
     CourseItemComponent,
-    OrderByDatePipe,
+    // OrderByDatePipe,
     CourseFormComponent,
     BreadcrumbComponent
   ]

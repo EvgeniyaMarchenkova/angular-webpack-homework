@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class CourseItemComponent implements OnInit {
   @Input() data: Course;
   @Output() idCourse: EventEmitter<number> = new EventEmitter();
+  @Output() dataEditingCourse: EventEmitter<Course> = new EventEmitter();
   isUpdating: boolean;
 
   constructor(public changeBorderDirective: ChangeBorderDirective,
@@ -31,6 +32,6 @@ export class CourseItemComponent implements OnInit {
 
     updateCourse(data) {
         this.isUpdating =  true;
-        this.router.navigate(['/courses', data.id]);
+        this.dataEditingCourse.emit(data);
     }
 }

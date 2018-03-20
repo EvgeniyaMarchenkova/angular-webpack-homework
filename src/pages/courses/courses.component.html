@@ -1,44 +1,24 @@
-<!--<div class="container">-->
-    <!--<education-header></education-header>-->
-  <!--<div class="row">-->
-    <!--<div [ngSwitch]="content">-->
-      <!--<div *ngSwitchCase="'main'">-->
-        <!--<button class="btn btn-lg btn-primary"-->
-                <!--(click)="openForm()">Add course</button>-->
-      <div class="row">
-        <toolbox (searchString)="find($event)"></toolbox>
-        <a class="col-sm" routerLink="/courses/new" class="btn btn-lg btn-primary">Add course</a>
-      </div>
-      <div *ngIf="!noCourses;else noCourseMessage">
-        <item *ngFor="let course of (displayedCourses$)"
-              [data]="course"
-              (idCourse)="deleteCourse($event)"
-              (dataEditingCourse)="updateCourse($event)">
-        </item>
-        <ngb-pagination *ngIf="!isSearchResults"
-                        [collectionSize]="totalResults"
-                        [(page)]="currentPage"
-                        aria-label="Default pagination"
-                        (pageChange)="loadPage($event)"></ngb-pagination>
-      </div>
-      <!--</div>-->
-      <!--<div *ngSwitchCase="'course-form'">-->
-        <!--<course-form [course]="dataEditingCourse"></course-form>-->
-      <!--</div>-->
-      <!--<div *ngSwitchCase="'login-form'">-->
-        <!--&lt;!&ndash;<login-page></login-page>&ndash;&gt;-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--<footer class="footer">-->
-    <!--<education-footer></education-footer>-->
-  <!--</footer>-->
-<!--</div>-->
-<!--<ng-template #noCourseMessage>-->
-  <!--<div class="no-courses-message">-->
-    <!--No data. Feel free to add new courses.-->
-  <!--</div>-->
-<!--</ng-template>-->
-
+<div class="row">
+    <toolbox (searchString)="find($event)"></toolbox>
+    <a class="col-sm" routerLink="/courses/new" class="btn btn-lg btn-primary">Add course</a>
+</div>
+<div class="alert alert-danger error-block" *ngIf="error">Something went wrong. Please try later</div>
+<div *ngIf="!noCourses;else noCourseMessage">
+    <item *ngFor="let course of (displayedCourses$)"
+          [data]="course"
+          (idCourse)="deleteCourse($event)"
+          (dataEditingCourse)="updateCourse($event)">
+    </item>
+    <ngb-pagination *ngIf="!isSearchResults"
+                    [collectionSize]="totalResults"
+                    [(page)]="currentPage"
+                    aria-label="Default pagination"
+                    (pageChange)="loadPage($event)"></ngb-pagination>
+</div>
+<ng-template #noCourseMessage>
+    <div class="no-courses-message">
+        No data. Feel free to add new courses.
+    </div>
+</ng-template>
 
 

@@ -3,6 +3,10 @@
     margin: 20px 0;
 }
 
+.error-block {
+    margin: 10px;
+}
+
 .error-message {
     color: red;
 }

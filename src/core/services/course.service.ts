@@ -9,6 +9,7 @@ import 'rxjs/add/operator/switchMap';
 import {Subject} from 'rxjs/Subject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Course} from '../../shared/interfaces/course';
 
 @Injectable()
 export class CourseService {
@@ -38,7 +39,7 @@ export class CourseService {
         });
     }
 
-    getCourse(id): any {
+    getCourse(id): Observable<any> {
         return this.http.get(`http://localhost:3000/courses/${id}`);
         //     .map(courses => {
         //     // _.forEach(courses, (item) =>  {
